@@ -1,0 +1,518 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=30mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\hypersetup{
+  pdftitle={Square-Lattice Spectral--Curvature Closure in an HSS-Motivated Leading Sector},
+  pdfsubject={Standalone research note on an exact square-lattice finite-jet closure}
+}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Hh}{\mathfrak{H}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\bK}{\overline{K}}
+\newcommand{\bg}{\overline{g}}
+\newcommand{\bsigma}{\overline{\sigma}}
+\newcommand{\bD}{\overline{D}}
+\newcommand{\bSc}{\overline{\mathcal{S}}_{\mathrm{curv}}}
+
+\title{\textbf{Square-Lattice Spectral--Curvature Closure\\in an HSS-Motivated Leading Sector}}
+% Insert the author's name before public release, for example:
+% \author{Author Name}
+\author{}
+\date{13 July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We study a three-dimensional cubic Hessian model whose leading correction is built from the eta-product
+\[
+ B(q)=9\prod_{n\ge 1}(1-q^n)^{-4}=9q^{1/6}\eta(\tau)^{-4},
+ \qquad q=\e^{2\pi\ii\tau}.
+\]
+The model is motivated by the leading one-sectional series appearing in the work of Hosono--Saito--Stienstra on Schoen's Calabi--Yau threefold. On the symmetric line \(v=(x,1,1)\), at the square lattice \(\tau=i\), we prove that the first-order even--odd primitive bisectional-curvature response is an exact linear combination of two symmetry-adapted first-order spectral-response channels. The coefficients are independent of \(x\) and admit closed forms in \(E_4(i)\), hence in \(\Gamma(1/4)\). The closure is not a formal identity of cubic Hessian geometry: it is forced by finite-jet identities obtained from Ramanujan's differential equations together with the elliptic fixed-point values \(E_2(i)=3/\pi\) and \(E_6(i)=0\). An exact computer-algebra certificate verifies the remaining rational identity in the generic variable \(x\). We also distinguish the unconditional eta-product theorem proved here from the finite-order coefficient comparison with the independently generated HSS series.
+\end{abstract}
+
+\section{Introduction}
+
+The purpose of this note is to isolate and prove a narrow special-point phenomenon in a three-dimensional leading-sector Hessian model. The background cubic is
+\begin{equation}\label{eq:V}
+ V(v_0,v_1,v_2)
+ =9v_0v_1v_2+\frac32v_1^2v_2+\frac32v_1v_2^2,
+\end{equation}
+and the leading correction is constructed from a single one-variable series in each of the variables \(v_1,v_2\). The series used below is the eta-product
+\begin{equation}\label{eq:Bdef}
+ B(q)=9\prod_{n\ge 1}(1-q^n)^{-4}
+     =9q^{1/6}\eta(\tau)^{-4},
+ \qquad q=\e^{2\pi\ii\tau}.
+\end{equation}
+Its first coefficients are
+\[
+ 9+36q+126q^2+360q^3+945q^4+2268q^5+5166q^6+\cdots.
+\]
+
+The motivation comes from Hosono--Saito--Stienstra (HSS), who expressed the one-sectional A-model contribution for Schoen's Calabi--Yau threefold using an \(E_8\) theta function and Dedekind's eta function, and compared it with a B-model series through order fifty \cite{HSS}. The coefficient list relevant to the present restricted leading sector agrees with \eqref{eq:Bdef} through that order. A finite coefficient comparison is not, by itself, a proof of equality of infinite series. Accordingly, all exact statements in this note are theorems for the eta-product model \eqref{eq:Bdef}. They transfer verbatim to any independently defined HSS leading series once its equality with \eqref{eq:Bdef} is established.
+
+The main result is an exact closure on the square-lattice line
+\[
+ v=(x,1,1),\qquad x>0,
+\]
+where the two transverse moduli correspond to \(\tau=i\). Let \(\bsigma(x)\) denote the signed even--odd primitive spectral splitting, let \(\bD(x)\) denote a radial-average spectral channel, and let \(\bSc(x)\) denote the normalized first-order bisectional-curvature response. Precise definitions are given in \cref{sec:model}. We prove
+\begin{equation}\label{eq:introclosure}
+ \bSc(x)=\alpha\,\bsigma(x)+\beta\,\bD(x),
+ \qquad x>0,
+\end{equation}
+with constants independent of \(x\). Setting
+\begin{equation}\label{eq:zdef}
+ z:=\pi^2E_4(i),
+\end{equation}
+these constants are
+\begin{equation}\label{eq:abintro}
+ \alpha=\frac16+\frac{z}{18},
+ \qquad
+ \beta=\frac{837+138z-7z^2}{72(z+9)}.
+\end{equation}
+In particular,
+\begin{equation}\label{eq:alphagamma}
+ \alpha
+ =\frac16+\frac{\Gamma(1/4)^8}{384\pi^4},
+\end{equation}
+using the standard evaluation
+\[
+ E_4(i)=\frac{3\Gamma(1/4)^8}{(2\pi)^6}.
+\]
+Numerically,
+\begin{align*}
+ \alpha&=0.964877991582101520276026896949417\ldots,\\
+ \beta&=0.817078886739018027552434226838424\ldots.
+\end{align*}
+
+The mechanism is not merely ``complex multiplication'' in a broad sense. The point \(i\) is an elliptic fixed point of the modular group. Its stabilizer forces
+\[
+ E_6(i)=0,
+ \qquad
+ E_2(i)=\frac{3}{\pi},
+\]
+and these identities collapse the required finite jet of \(B\) into the one-generator algebra \(\Q(2\pi)[E_4(i)]\). The curvature obstruction then vanishes after imposing two specific jet identities. For arbitrary formal jets, it does not vanish.
+
+\section{The cubic model and the three response channels}\label{sec:model}
+
+Set
+\begin{equation}\label{eq:Lpq}
+ L=2\pi,
+ \qquad
+ p=\e^{-Lv_0},
+ \qquad
+ q_j=\e^{-Lv_j}\quad (j=1,2).
+\end{equation}
+Write
+\[
+ B_j=B(q_j),
+ \qquad
+ T_j=(\theta B)(q_j),
+ \qquad
+ \theta=q\frac{\dd}{\dd q}.
+\]
+The background potential is
+\begin{equation}\label{eq:K0}
+ K_0=-\log V,
+\end{equation}
+with \(V\) as in \eqref{eq:V}. The leading correction is written
+\begin{equation}\label{eq:K1}
+ K_1=p\,\bK_1,
+\end{equation}
+where
+\begin{equation}\label{eq:K1bar}
+ \bK_1
+ =\frac{
+ B_1B_2(1+Lv_0)
+ +Lv_1T_1B_2
+ +Lv_2B_1T_2
+ }{2L^3V}.
+\end{equation}
+We regard
+\begin{equation}\label{eq:Keps}
+ K_\varepsilon=K_0+\varepsilon K_1+O(\varepsilon^2)
+\end{equation}
+as a formal first-order deformation.
+
+Because of the common factor \(p\), derivatives in the \(v_0\)-direction are naturally twisted. Define
+\begin{equation}\label{eq:twistedD}
+ \mathscr D_0=\partial_{v_0}-L,
+ \qquad
+ \mathscr D_1=\partial_{v_1},
+ \qquad
+ \mathscr D_2=\partial_{v_2}.
+\end{equation}
+Thus, for every smooth \(F\),
+\[
+ p^{-1}\partial_{v_0}(pF)=\mathscr D_0F.
+\]
+The background Hessian metric and the \(p\)-free first variation are
+\begin{equation}\label{eq:gdefs}
+ g^{(0)}_{ij}=\partial_i\partial_jK_0,
+ \qquad
+ \bg^{(1)}_{ij}=p^{-1}\partial_i\partial_jK_1
+ =\mathscr D_i\mathscr D_j\bK_1.
+\end{equation}
+We also set
+\begin{equation}\label{eq:Mdef}
+ M_{ij}=\partial_i\partial_jV.
+\end{equation}
+
+Restrict now to the symmetric line
+\begin{equation}\label{eq:line}
+ \ell=\{(x,1,1):x>0\}.
+\end{equation}
+The symmetry-adapted directions are
+\begin{equation}\label{eq:directions}
+ e=(-(2x+1),1,1),
+ \qquad
+ o=(0,1,-1),
+ \qquad
+ r=(x,1,1).
+\end{equation}
+The labels stand for even primitive, odd primitive, and radial. Along \(\ell\),
+\begin{equation}\label{eq:Mnorms}
+ M(e,e)=-18(3x+1),
+ \quad
+ M(o,o)=-6(3x+1),
+ \quad
+ M(r,r)=18(3x+1),
+\end{equation}
+so the following directional response quotients are well defined for \(x>0\):
+\begin{equation}\label{eq:mudefs}
+ \mu_e=\frac{\bg^{(1)}(e,e)}{M(e,e)},
+ \qquad
+ \mu_o=\frac{\bg^{(1)}(o,o)}{M(o,o)},
+ \qquad
+ \mu_r=\frac{\bg^{(1)}(r,r)}{M(r,r)}.
+\end{equation}
+
+\begin{definition}[Spectral-response channels]\label{def:spectralchannels}
+The \(p\)-free signed primitive splitting and radial-average channel are
+\begin{equation}\label{eq:channels}
+ \bsigma=\mu_o-\mu_e,
+ \qquad
+ \bD=\frac{\mu_e+\mu_o}{2}+2\mu_r.
+\end{equation}
+\end{definition}
+
+To define the curvature channel, let \(g=\partial^2K\) be a Hessian metric. We use the curvature convention
+\begin{equation}\label{eq:Rconv}
+ R_K(a,b,a,b)
+ =-K^{(4)}(a,a,b,b)
+ +g^{-1}\!\left(K^{(3)}(a,b,\cdot),K^{(3)}(a,b,\cdot)\right).
+\end{equation}
+The corresponding bisectional curvature is
+\begin{equation}\label{eq:Bisectional}
+ \cB_{a,b}(K)
+ =\frac{R_K(a,b,a,b)}{g(a,a)g(b,b)}.
+\end{equation}
+For the background potential \(K_0\), direct calculation gives
+\begin{equation}\label{eq:B0}
+ \cB_{e,o}(K_0)=-\frac13.
+\end{equation}
+Write the first-order expansion
+\begin{equation}\label{eq:Bexp}
+ \cB_{e,o}(K_\varepsilon)
+ =-\frac13+\varepsilon p\,\overline{\cB}^{(1)}_{e,o}+O(\varepsilon^2).
+\end{equation}
+
+\begin{definition}[Curvature-response channel]\label{def:curvchannel}
+The normalized \(p\)-free curvature response is
+\begin{equation}\label{eq:Scurvdef}
+ \bSc=-\frac{\overline{\cB}^{(1)}_{e,o}}{V}.
+\end{equation}
+\end{definition}
+
+All three channels are rational functions of \(x\), \(L\), and a finite jet of the one-variable series \(B\) at \(q=\e^{-L}\).
+
+\section{Square-lattice modular jets}\label{sec:modularjets}
+
+Define
+\begin{equation}\label{eq:Cm}
+ C_m=(\theta^mB)(\e^{-2\pi}),
+ \qquad
+ u_m=\frac{C_m}{C_0}.
+\end{equation}
+The calculations in \cref{sec:model} use only \(C_0,\ldots,C_5\).
+
+From \eqref{eq:Bdef} and \(\theta\log\eta=E_2/24\),
+\begin{equation}\label{eq:A}
+ A:=\theta\log B=\frac{1-E_2}{6}.
+\end{equation}
+Consequently,
+\begin{equation}\label{eq:urecurrence}
+ u_0=1,
+ \qquad
+ u_{m+1}=\theta u_m+A u_m.
+\end{equation}
+Ramanujan's differential equations are
+\begin{equation}\label{eq:Ramanujan}
+ \theta E_2=\frac{E_2^2-E_4}{12},
+ \qquad
+ \theta E_4=\frac{E_2E_4-E_6}{3},
+ \qquad
+ \theta E_6=\frac{E_2E_6-E_4^2}{2}.
+\end{equation}
+
+The point \(\tau=i\) is fixed by \(S:\tau\mapsto-1/\tau\). The modular transformation law for \(E_6\) gives \(E_6(i)=i^6E_6(i)=-E_6(i)\), while the quasimodular transformation law for \(E_2\) gives \(E_2(i)=3/\pi=6/L\). Let
+\begin{equation}\label{eq:bdef}
+ b:=E_4(i).
+\end{equation}
+Substitution into \eqref{eq:urecurrence} yields the following exact jet formulas.
+
+\begin{proposition}[Square-lattice normalized jets]\label{prop:jets}
+At \(\tau=i\),
+\begin{align}
+ u_0&=1,\label{eq:u0}\\
+ u_1&=\frac{L-6}{6L},\label{eq:u1}\\
+ u_2&=\frac{L^2b+2L^2-24L+36}{72L^2},\label{eq:u2}\\
+ u_3&=\frac{3L^2b+2L^2-36L+108}{432L^2},\label{eq:u3}\\
+ u_4&=\frac{3L^2b^2+3L^2b+L^2-24L+108}{1296L^2},\label{eq:u4}\\
+ u_5&=\frac{15L^2b^2+5L^2b+L^2+90Lb^2-30L+180}{7776L^2}.\label{eq:u5}
+\end{align}
+In particular,
+\begin{equation}\label{eq:jetalgebra}
+ u_m\in\Q(L)[b],
+ \qquad
+ \deg_b(u_0,\ldots,u_5)=(0,0,1,1,2,2).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Start from \(u_0=1\), iterate \eqref{eq:urecurrence}, and use \eqref{eq:Ramanujan} after every differentiation. The resulting expressions are polynomials in \(E_2,E_4,E_6\). Setting \(E_2=6/L\) and \(E_6=0\) gives \eqref{eq:u0}--\eqref{eq:u5}.
+\end{proof}
+
+The first two elementary consequences are
+\begin{equation}\label{eq:R1R3}
+ R_1:=-LC_0+6LC_1+6C_0=0
+\end{equation}
+and
+\begin{equation}\label{eq:R3}
+ R_3:=(L-9)C_0-54LC_2+108LC_3=0.
+\end{equation}
+The complete normalized jet locus through order five has one free generator \(b\), hence codimension four after localization at \(LC_0\neq0\). Two further quadratic generators may be obtained by eliminating \(b\) from \eqref{eq:u2}, \eqref{eq:u4}, and \eqref{eq:u5}. They are recorded in the supplementary computer-algebra material.
+
+For the curvature closure, a different quadratic identity is especially efficient:
+\begin{align}
+ R_5={}&-54L^2C_2^2+12L^2C_0C_3+108L^2C_2C_3
+       -45L^2C_0C_4+54L^2C_0C_5\notag\\
+ &+LC_0^2-72LC_0C_2+216LC_0C_3-270LC_0C_4-8C_0^2.
+ \label{eq:R5}
+\end{align}
+
+\begin{proposition}[Closure identities]\label{prop:R1R5}
+The square-lattice jets in \cref{prop:jets} satisfy
+\begin{equation}\label{eq:R1R5zero}
+ R_1=0,
+ \qquad
+ R_5=0.
+\end{equation}
+Moreover, the value of \(E_4(i)\) cancels from both identities.
+\end{proposition}
+
+\begin{proof}
+The relation \(R_1=0\) is immediate from \eqref{eq:u1}. Divide \eqref{eq:R5} by \(C_0^2\), substitute \eqref{eq:u2}--\eqref{eq:u5}, and simplify. All terms in \(b\) cancel identically.
+\end{proof}
+
+\section{The finite-jet obstruction}\label{sec:obstruction}
+
+Treat \(L,C_0,\ldots,C_5\) as independent formal variables and construct the channels in \cref{sec:model} using formal Taylor jets. Fix two interpolation points
+\begin{equation}\label{eq:interpolationpoints}
+ x_1=\frac65,
+ \qquad
+ x_2=2.
+\end{equation}
+For a third point \(x_3\), define the determinant obstruction
+\begin{equation}\label{eq:Obstruction}
+ \mathcal O(x_1,x_2,x_3)
+ =\det
+ \begin{pmatrix}
+ \bSc(x_1)&\bsigma(x_1)&\bD(x_1)\\
+ \bSc(x_2)&\bsigma(x_2)&\bD(x_2)\\
+ \bSc(x_3)&\bsigma(x_3)&\bD(x_3)
+ \end{pmatrix}.
+\end{equation}
+If \(\bSc\) belongs to the span of \(\bsigma\) and \(\bD\) with coefficients independent of \(x\), then \(\mathcal O=0\).
+
+The numerator of \(\mathcal O\) is not the zero polynomial for unrestricted jets. For example, at each of \(x_3=5/4,7/5,3/2\), the exact numerator produced by the formal calculation is nonzero. Thus the closure is not a consequence of the cubic Hessian structure alone.
+
+The following exact identity is the algebraic core of the note.
+
+\begin{proposition}[Generic-variable closure certificate]\label{prop:certificate}
+Let \(\alpha\) and \(\beta\) be defined by solving
+\begin{equation}\label{eq:fitab}
+ \bSc(x_j)=\alpha\bsigma(x_j)+\beta\bD(x_j),
+ \qquad j=1,2,
+\end{equation}
+with \(x_1,x_2\) as in \eqref{eq:interpolationpoints}. In the fraction field
+\[
+ \Q(X,L,C_0,C_1,C_2,C_3,C_4,C_5),
+\]
+the residual
+\begin{equation}\label{eq:residual}
+ \mathcal R(X)=\bSc(X)-\alpha\bsigma(X)-\beta\bD(X)
+\end{equation}
+has identically zero numerator after imposing \(R_1=0\) and \(R_5=0\). Equivalently, after the substitutions
+\begin{equation}\label{eq:C1C5subs}
+ C_1=\frac{(L-6)C_0}{6L}
+\end{equation}
+and
+\begin{equation}\label{eq:C5sub}
+\begin{aligned}
+ C_5=\frac{1}{54L^2C_0}\bigl(&54L^2C_2^2-12L^2C_0C_3-108L^2C_2C_3
+ +45L^2C_0C_4\\
+ &-LC_0^2+72LC_0C_2-216LC_0C_3+270LC_0C_4+8C_0^2\bigr).
+\end{aligned}
+\end{equation}
+the numerator of \(\mathcal R(X)\) is the zero polynomial in
+\[
+ \Q[X,L,C_0,C_2,C_3,C_4].
+\]
+\end{proposition}
+
+\begin{proof}
+This is an exact symbolic calculation using truncated multivariate Taylor jets through total order four. No floating-point arithmetic enters the identity. The supplied SageMath certificate constructs \(V\), \(K_0\), \(\bK_1\), the three response channels, the interpolation coefficients, and the generic residual. It then substitutes \eqref{eq:C1C5subs}--\eqref{eq:C5sub}, clears denominators, takes the primitive numerator, and returns the zero polynomial. The same script verifies the consistency checks \(\cB_{e,o}(K_0)=-1/3\) and the first-order denominator identity used in the curvature expansion.
+\end{proof}
+
+\begin{remark}
+The role of \(R_1,R_5\) is sufficiency for the curvature closure. They are not claimed to generate the complete square-lattice jet ideal. The fuller one-generator description is \eqref{eq:jetalgebra}; in particular, \(R_3\) in \eqref{eq:R3} is another simple exact relation.
+\end{remark}
+
+\section{Exact closure and exact constants}\label{sec:mainresult}
+
+We now combine the modular jet calculation with the finite-jet certificate.
+
+\begin{theorem}[Square-lattice spectral--curvature closure]\label{thm:main}
+Let \(B\) be the eta-product \eqref{eq:Bdef}, and let the cubic potential, leading correction, symmetry-adapted directions, and response channels be defined by \eqref{eq:V}--\eqref{eq:Scurvdef}. On the square-lattice symmetric line
+\[
+ v=(x,1,1),
+ \qquad x>0,
+\]
+one has the exact identity
+\begin{equation}\label{eq:mainclosure}
+ \bSc(x)=\alpha\,\bsigma(x)+\beta\,\bD(x),
+\end{equation}
+where \(\alpha,\beta\) are independent of \(x\). With \(z=\pi^2E_4(i)\),
+\begin{equation}\label{eq:exactab}
+ \boxed{
+ \alpha=\frac16+\frac{z}{18},
+ \qquad
+ \beta=\frac{837+138z-7z^2}{72(z+9)}
+ }.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+By \cref{prop:R1R5}, the square-lattice jets satisfy \(R_1=R_5=0\). Hence \cref{prop:certificate} implies that \(\bSc\) lies in the \(x\)-independent span of \(\bsigma\) and \(\bD\) for every \(x>0\).
+
+It remains to evaluate the interpolation coefficients. Substitute the jets from \cref{prop:jets} into \eqref{eq:fitab} at \(x_1=6/5\), \(x_2=2\), and simplify. Writing \(b=E_4(i)\), the result is
+\begin{equation}\label{eq:abLb}
+ \alpha=\frac{L^2b+12}{72},
+ \qquad
+ \beta=-\frac{7L^4b^2-552L^2b-13392}{288(L^2b+36)}.
+\end{equation}
+Since \(L=2\pi\) and \(z=\pi^2b\), \eqref{eq:abLb} is equivalent to \eqref{eq:exactab}.
+\end{proof}
+
+\begin{corollary}[Gamma-value form]\label{cor:gamma}
+The coefficient \(\alpha\) is
+\[
+ \alpha=\frac16+\frac{\Gamma(1/4)^8}{384\pi^4}.
+\]
+The coefficient \(\beta\) belongs to \(\Q(\pi,\Gamma(1/4))\), explicitly through \eqref{eq:exactab} and
+\[
+ z=\frac{3\Gamma(1/4)^8}{64\pi^4}.
+\]
+\end{corollary}
+
+\section{Interpretation and limitations}\label{sec:discussion}
+
+\subsection{Why the phenomenon is a fixed-point effect}
+
+The nearby purely imaginary point \(1.3i\) is also imaginary quadratic, hence a CM point in the broad arithmetic sense. The present mechanism therefore should not be described as a generic distinction between ``CM'' and ``non-CM'' moduli. What is special about \(i\) is its elliptic stabilizer. The fixed-point relations force \(E_6(i)=0\) and reduce the quasimodular value \(E_2(i)\) to \(3/\pi\), leaving only \(E_4(i)\) as a period generator in the required jet. This is precisely the reduction displayed in \eqref{eq:jetalgebra}.
+
+A more accurate phrase is therefore \emph{square-lattice elliptic-fixed-point closure}. The term ``CM'' remains correct but is less specific.
+
+\subsection{What is exact and what remains conditional}
+
+The mathematical theorem proved here is exact for the eta-product model \eqref{eq:Bdef}. The HSS paper gives an A-model expression in theta and eta functions and a separately generated B-model series, whose coefficients were compared through order fifty \cite{HSS}. The first fifty-one coefficients used in the present computation agree with \eqref{eq:Bdef}. Until a derivation, differential-equation uniqueness argument, or modular-form argument proves equality with the independently defined HSS series, the transfer from the eta-product model to that series should be stated as conditional.
+
+This separation is deliberate. It prevents finite coefficient agreement from being presented as an identity of infinite series while preserving the exact geometric and modular result for the model actually used in the proof.
+
+\subsection{Non-universality}
+
+The formal obstruction in \cref{sec:obstruction} is nonzero for arbitrary jets. Hence \eqref{eq:mainclosure} is not a universal law of cubic Hessian curvature and is not created merely by the common factor \(p\). It results from a special reduction of the jet algebra at the square lattice.
+
+\subsection{A hexagonal follow-up}
+
+The other elliptic fixed point is \(\rho=\e^{2\pi i/3}\), where \(E_4(\rho)=0\) and the corresponding fixed-point relation determines \(E_2(\rho)\). It is natural to ask whether an analogous closure occurs there. The present real slice, however, only samples purely imaginary moduli. Reaching \(\rho\), whose real part is \(-1/2\), requires extending the model to include the axionic or \(B\)-field directions. A hexagonal test is therefore a genuine extension of the setup rather than a direct substitution \(v_1=v_2=\sqrt3/2\).
+
+\section{Reproducibility statement}\label{sec:repro}
+
+The supplementary files accompanying this note separate discovery, modular reduction, and proof:
+\begin{enumerate}[label=\arabic*.]
+ \item a coefficient and Ramanujan-jet check for \(B\), \(R_1\), and \(R_5\);
+ \item an obstruction extractor showing that the unrestricted formal obstruction is nonzero and identifying the efficient jet relations;
+ \item a generic-\(x\) exact certificate proving that the residual numerator vanishes after imposing \(R_1,R_5\);
+ \item an independent SymPy verification of the exact constants and the generic square-lattice identity.
+\end{enumerate}
+The proof calculations use exact rational-function arithmetic. High-precision numerical evaluations are included only as diagnostics and are not used to establish the theorem.
+
+\section*{Version note}
+
+This standalone note supersedes an earlier preliminary addendum. The earlier document was explicitly labelled incomplete and non-citable; the present version separates assumptions from theorems, states the exact constants, and supplies a reproducible exact-algebra certificate.
+
+\begin{thebibliography}{9}
+
+\bibitem{HSS}
+S.~Hosono, M.-H.~Saito, and J.~Stienstra,
+\newblock On mirror symmetry conjecture for Schoen's Calabi--Yau 3-folds,
+\newblock in \emph{Integrable Systems and Algebraic Geometry},
+M.-H.~Saito, Y.~Shimizu, and K.~Ueno (eds.), World Scientific, 1998, pp.~194--235;
+\newblock arXiv:alg-geom/9709027.
+
+\bibitem{Ramanujan}
+S.~Ramanujan,
+\newblock On certain arithmetical functions,
+\newblock \emph{Transactions of the Cambridge Philosophical Society} \textbf{22} (1916), 159--184.
+
+\bibitem{Serre}
+J.-P.~Serre,
+\newblock \emph{A Course in Arithmetic},
+\newblock Graduate Texts in Mathematics 7, Springer, 1973.
+
+\bibitem{Zagier}
+D.~Zagier,
+\newblock Elliptic modular forms and their applications,
+\newblock in \emph{The 1-2-3 of Modular Forms},
+K.~Ranestad (ed.), Universitext, Springer, 2008, pp.~1--103.
+
+\end{thebibliography}
+
+\end{document}
