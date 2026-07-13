@@ -1,0 +1,27 @@
+RESULTS SUMMARY
+===============
+
+Exact symbolic results
+----------------------
+1. The cleared leading closure defect satisfies
+     N = (L E2 - 6) A + E6 B.
+2. The coefficient Jacobian transverse to the fixed-point ideal has determinant
+     29859840 C0^4 L^7 (L^2 E4 + 36)^2.
+3. Along tau = i y, the first derivative of the cleared defect is nonzero for every X>0; its physical cubic has all coefficients negative.
+4. The six-jet correction obstruction map has rank 2 and kernel dimension 4.
+5. The HSS gamma specialization reproduces
+     9 prod_(n>=1) (1-q^n)^(-4)
+   exactly to the enumerated order.
+6. The exact one-sided degree-two rational-surface correction from
+     Z_{0;2} = (E2/72) B^2
+   lies outside the preserving correction kernel.
+
+High-precision factorized-gluing result
+---------------------------------------
+At 1280 bits and q^2000, using thirteen radial points:
+     rank(A) = 4,
+     rank([A|b]) = 5.
+The conclusion is stable for tolerances 1e-20 through 1e-345.
+The tested natural factorized span therefore fails to restore two-channel closure numerically.
+
+This last statement is not a theorem about the full relative-contact degree-two Schoen potential.

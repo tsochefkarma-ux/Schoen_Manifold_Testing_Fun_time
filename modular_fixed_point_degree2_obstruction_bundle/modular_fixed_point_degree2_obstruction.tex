@@ -1,0 +1,774 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=28mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
+\usepackage{booktabs,array,longtable}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\hypersetup{
+  pdftitle={Modular Fixed-Point Rank Reduction and Degree-Two Obstructions in an HSS-Motivated Schoen Sector},
+  pdfsubject={Exact finite-jet results and a controlled degree-two factorized-gluing test}
+}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{experiment}[theorem]{Computational experiment}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{caution}[theorem]{Scope caution}
+
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Hh}{\mathfrak{H}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cD}{\mathfrak{D}}
+\newcommand{\bK}{\overline{K}}
+\newcommand{\bg}{\overline{g}}
+\newcommand{\bsigma}{\overline{\sigma}}
+\newcommand{\bD}{\overline{D}}
+\newcommand{\bSc}{\overline{\mathcal{S}}_{\mathrm{curv}}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\kerop}{\operatorname{ker}}
+
+\title{\textbf{Modular Fixed-Point Rank Reduction and Degree-Two Obstructions\\in an HSS-Motivated Schoen Sector}}
+% Insert the author's name before public release.
+% \author{Author Name}
+\author{}
+\date{13 July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We study a symmetry-reduced Hessian model motivated by the one-sectional Hosono--Saito--Stienstra (HSS) sector of Schoen's Calabi--Yau threefold.  The relevant one-variable series is the exact torsion specialization
+\[
+ B(q)=9\prod_{n\ge1}(1-q^n)^{-4}=9q^{1/6}\eta(\tau)^{-4},
+ \qquad q=\e^{2\pi\ii\tau}.
+\]
+On the symmetric line \(v=(x,1,1)\) and at the square lattice \(\tau=i\), the leading first-order even--odd primitive bisectional-curvature response closes exactly on two symmetry-adapted spectral-response channels.  We strengthen this closure in three directions.  First, the cleared closure defect lies in the modular fixed-point ideal
+\[
+ \langle LE_2-6,E_6\rangle,
+ \qquad L=2\pi,
+\]
+by an exact symbolic certificate.  Second, the coefficient map transverse to this ideal has rank two, and the closure is transverse along the physical path \(\tau=iy\) at every \(x>0\).  Third, arbitrary first-order corrections of the six required finite jets are governed by an exact rank-two obstruction map; its preserving kernel has dimension four, with two directions accounted for by overall rescaling and formal \(E_4\)-motion.
+
+We then compare these formal deformation directions with genuine degree-two rational-elliptic-surface data.  The HSS torsion embedding is verified directly from the \(E_8\) theta series, and the genus-zero degree-two series
+\[
+ Z_{0;2}=\frac{E_2}{72}B^2,
+ \qquad
+ \widetilde Z_{0;2}=Z_{0;2}-\frac18B(q^2)
+\]
+produces an exact six-jet correction that lies outside the preserving kernel.  Finally, we test a three-dimensional natural factorized degree-two Schoen ansatz, including all quadratic leading-sector contributions to the metric and curvature.  A 1280-bit, thirteen-point rank-revealing computation gives \(\rank(A)=4\) and \(\rank([A\mid b])=5\), stable over more than three hundred orders of tolerance.  This last result is presented only as high-precision evidence for the stated factorized ansatz, not as a theorem about the full relative-contact degree-two Schoen potential.  The combined results locate an exact modular rank reduction at base degree one and a controlled obstruction at the first nontrivial correction level.
+\end{abstract}
+
+\section{Introduction and statement of scope}
+
+The Schoen Calabi--Yau threefold is the fiber product of two rational elliptic surfaces over \(\mathbb P^1\) \cite{Schoen}.  Its enumerative geometry exhibits a pronounced modular structure.  Hosono, Saito, and Stienstra calculated a one-sectional part of the A-model prepotential using an \(E_8\) theta function and Dedekind's eta function, and compared the corresponding B-model series to high order \cite{HSS}.  Hosono, Saito, and Takahashi subsequently derived holomorphic-anomaly relations and explicit genus-zero degree-two series for the rational elliptic surface \cite{HST}.  Much later, Oberdieck and Pixton proved that the relative rational-elliptic-surface potentials are \(E_8\) quasi-Jacobi forms numerically and deduced an \(E_8\times E_8\) quasi-bi-Jacobi structure for the Schoen relative potentials \cite{OP}.
+
+The present paper studies a different question.  Starting from the HSS-motivated leading Hessian correction, we ask whether a particular curvature-response functional is determined by two canonical spectral-response channels.  At the square lattice the answer is yes, and the closure is exact.  The purpose here is to identify the algebraic mechanism, prove its local rigidity, and determine what survives under the first genuine correction data.
+
+The paper deliberately separates exact algebra from exploratory gluing tests.  The logical status of the results is summarized in \cref{tab:status}.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{p{0.43\textwidth}p{0.19\textwidth}p{0.28\textwidth}}
+\toprule
+Result & Status & Method \\
+\midrule
+Leading square-lattice two-channel closure & exact & rational-function identity and Ramanujan jets \\
+Fixed-point ideal membership & exact & symbolic certificate over a polynomial fraction field \\
+Local rank-two rigidity & exact & symbolic Jacobian determinant \\
+Positive-root and modular-path sign statements & rigorous computer-assisted & Arb/real-ball enclosures \\
+Six-jet correction obstruction map and kernel dimension & exact & dual-number symbolic calculation \\
+One-sided rational-surface degree-two correction is obstructed & exact & exact kernel membership test \\
+Natural factorized Schoen degree-two span is inconsistent & high-precision evidence & 1280-bit rank-revealing computation at thirteen points \\
+\bottomrule
+\end{tabular}
+\caption{Logical status of the main claims.  The final row is not promoted to an exact theorem about the full Schoen degree-two potential.}
+\label{tab:status}
+\end{table}
+
+The principal exact conclusion is that the leading closure is governed by the elliptic fixed-point ideal rather than by accidental numerical relations among jets.  The first exact correction test then shows that the uninserted rational-surface degree-two shape breaks the closure.  The final numerical experiment demonstrates that the simplest factorized gluing span is still insufficient after all order-\(p^2\) quadratic geometric terms are included.
+
+\section{The HSS torsion specialization and the Hessian model}
+
+\subsection{The one-variable series}
+
+Let
+\begin{equation}\label{eq:Bdef}
+ B(q)=9\prod_{n\ge1}(1-q^n)^{-4}
+     =9q^{1/6}\eta(\tau)^{-4},
+ \qquad q=\e^{2\pi\ii\tau}.
+\end{equation}
+The first coefficients are
+\[
+ 9+36q+126q^2+360q^3+945q^4+2268q^5+5166q^6+\cdots.
+\]
+
+This series is not introduced only through coefficient matching.  In the rational-elliptic-surface description, let
+\[
+ \gamma=(1,1,1,1,1,1,1,-1)\in\R^8.
+\]
+The HSS torsion specialization may be written
+\begin{equation}\label{eq:gammaidentity}
+ q^{3/2}\frac{\Theta_{E_8}(3\tau,\tau\gamma)}{\eta(3\tau)^{12}}
+ =9q^{1/6}\eta(\tau)^{-4}=B(q),
+\end{equation}
+with the conventions of \cite{HST}.  The supplementary code independently enumerates the \(E_8\) lattice and verifies \eqref{eq:gammaidentity} coefficientwise to the requested order.  In particular, the leading eta-product used below is an exact HSS torsion specialization.
+
+\subsection{Cubic potential and leading correction}
+
+Set
+\begin{equation}\label{eq:V}
+ V(v_0,v_1,v_2)
+ =9v_0v_1v_2+\frac32v_1^2v_2+\frac32v_1v_2^2,
+\end{equation}
+and
+\begin{equation}\label{eq:Lpq}
+ L=2\pi,
+ \qquad p=\e^{-Lv_0},
+ \qquad q_j=\e^{-Lv_j}\quad(j=1,2).
+\end{equation}
+Write
+\[
+ B_j=B(q_j),
+ \qquad T_j=(\theta B)(q_j),
+ \qquad \theta=q\frac{\dd}{\dd q}.
+\]
+The background and leading correction are
+\begin{equation}\label{eq:K0K1}
+ K_0=-\log V,
+ \qquad
+ K_1=p\,\bK_1,
+\end{equation}
+where
+\begin{equation}\label{eq:K1bar}
+ \bK_1=
+ \frac{B_1B_2(1+Lv_0)+Lv_1T_1B_2+Lv_2B_1T_2}{2L^3V}.
+\end{equation}
+The common \(p\)-factor gives the twisted derivatives
+\begin{equation}\label{eq:twisted}
+ \mathscr D_0=\partial_{v_0}-L,
+ \qquad
+ \mathscr D_1=\partial_{v_1},
+ \qquad
+ \mathscr D_2=\partial_{v_2}.
+\end{equation}
+Thus
+\begin{equation}\label{eq:gdefs}
+ g^{(0)}_{ij}=\partial_i\partial_jK_0,
+ \qquad
+ \bg^{(1)}_{ij}=p^{-1}\partial_i\partial_jK_1
+ =\mathscr D_i\mathscr D_j\bK_1.
+\end{equation}
+
+\subsection{Symmetry-adapted response channels}
+
+Restrict to
+\begin{equation}\label{eq:line}
+ v=(x,1,1),\qquad x>0.
+\end{equation}
+The even primitive, odd primitive, and radial directions are
+\begin{equation}\label{eq:directions}
+ e=(-(2x+1),1,1),
+ \qquad o=(0,1,-1),
+ \qquad r=(x,1,1).
+\end{equation}
+Let \(M_{ij}=\partial_i\partial_jV\).  Along \eqref{eq:line},
+\[
+ M(e,e)=-18(3x+1),\quad
+ M(o,o)=-6(3x+1),\quad
+ M(r,r)=18(3x+1).
+\]
+Define
+\begin{equation}\label{eq:mus}
+ \mu_e=\frac{\bg^{(1)}(e,e)}{M(e,e)},
+ \qquad
+ \mu_o=\frac{\bg^{(1)}(o,o)}{M(o,o)},
+ \qquad
+ \mu_r=\frac{\bg^{(1)}(r,r)}{M(r,r)},
+\end{equation}
+and the two spectral channels
+\begin{equation}\label{eq:channels}
+ \bsigma=\mu_o-\mu_e,
+ \qquad
+ \bD=\frac{\mu_e+\mu_o}{2}+2\mu_r.
+\end{equation}
+
+For a Hessian potential \(K\), use the curvature convention
+\begin{equation}\label{eq:Rconv}
+ R_K(a,b,a,b)
+ =-K^{(4)}(a,a,b,b)
+ +g^{-1}\!\left(K^{(3)}(a,b,\cdot),K^{(3)}(a,b,\cdot)\right).
+\end{equation}
+The bisectional curvature is
+\begin{equation}\label{eq:Bcurv}
+ \cB_{a,b}(K)=\frac{R_K(a,b,a,b)}{g(a,a)g(b,b)}.
+\end{equation}
+For \(K_0\), one obtains
+\begin{equation}\label{eq:B0}
+ \cB_{e,o}(K_0)=-\frac13.
+\end{equation}
+Writing
+\[
+ \cB_{e,o}(K_0+\varepsilon K_1)
+ =-\frac13+\varepsilon p\,\overline{\cB}^{(1)}_{e,o}+O(\varepsilon^2),
+\]
+define the normalized curvature response
+\begin{equation}\label{eq:Scurv}
+ \bSc=-\frac{\overline{\cB}^{(1)}_{e,o}}{V}.
+\end{equation}
+
+\section{Square-lattice jets and the leading closure}
+
+Let
+\begin{equation}\label{eq:Cm}
+ C_m=(\theta^mB)(\e^{-2\pi}),
+ \qquad u_m=\frac{C_m}{C_0}.
+\end{equation}
+Since
+\[
+ \theta\log B=\frac{1-E_2}{6},
+\]
+the normalized jets satisfy
+\begin{equation}\label{eq:urec}
+ u_0=1,
+ \qquad
+ u_{m+1}=\theta u_m+\frac{1-E_2}{6}u_m.
+\end{equation}
+Together with Ramanujan's equations
+\begin{equation}\label{eq:Ramanujan}
+ \theta E_2=\frac{E_2^2-E_4}{12},\quad
+ \theta E_4=\frac{E_2E_4-E_6}{3},\quad
+ \theta E_6=\frac{E_2E_6-E_4^2}{2},
+\end{equation}
+this gives the finite jets needed by the curvature calculation.  At \(\tau=i\),
+\begin{equation}\label{eq:fixedvalues}
+ E_2(i)=\frac{3}{\pi}=\frac6L,
+ \qquad E_6(i)=0.
+\end{equation}
+Writing \(b=E_4(i)\), the six normalized jets are
+\begin{align}
+ u_0&=1,\notag\\
+ u_1&=\frac{L-6}{6L},\notag\\
+ u_2&=\frac{L^2b+2L^2-24L+36}{72L^2},\notag\\
+ u_3&=\frac{3L^2b+2L^2-36L+108}{432L^2},\label{eq:jets}\\
+ u_4&=\frac{3L^2b^2+3L^2b+L^2-24L+108}{1296L^2},\notag\\
+ u_5&=\frac{15L^2b^2+5L^2b+L^2+90Lb^2-30L+180}{7776L^2}.\notag
+\end{align}
+
+\begin{theorem}[Leading square-lattice closure]\label{thm:leading}
+On the line \(v=(x,1,1)\), \(x>0\), the eta-product leading sector satisfies
+\begin{equation}\label{eq:closure}
+ \bSc(x)=\alpha_0\bsigma(x)+\beta_0\bD(x),
+\end{equation}
+where the coefficients are independent of \(x\).  With
+\[
+ z=\pi^2E_4(i),
+\]
+one has
+\begin{equation}\label{eq:ab}
+ \alpha_0=\frac16+\frac{z}{18},
+ \qquad
+ \beta_0=\frac{837+138z-7z^2}{72(z+9)}.
+\end{equation}
+Equivalently,
+\[
+ \alpha_0=\frac16+\frac{\Gamma(1/4)^8}{384\pi^4}.
+\]
+\end{theorem}
+
+\begin{proof}
+The formal channels depend only on \(C_0,\ldots,C_5\).  For arbitrary jets the determinant obstruction to \eqref{eq:closure} is nonzero.  The square-lattice jets satisfy two efficient identities,
+\begin{equation}\label{eq:R1}
+ -LC_0+6LC_1+6C_0=0,
+\end{equation}
+and
+\begin{align}
+ 0={}&-54L^2C_2^2+12L^2C_0C_3+108L^2C_2C_3
+ -45L^2C_0C_4+54L^2C_0C_5\notag\\
+ &+LC_0^2-72LC_0C_2+216LC_0C_3-270LC_0C_4-8C_0^2.
+ \label{eq:R5}
+\end{align}
+An exact generic-\(x\) symbolic certificate shows that, after imposing \eqref{eq:R1}--\eqref{eq:R5}, the numerator of
+\[
+ \bSc(x)-\alpha_0\bsigma(x)-\beta_0\bD(x)
+\]
+is the zero polynomial.  Substitution of \eqref{eq:jets} into the interpolation coefficients gives \eqref{eq:ab}.
+\end{proof}
+
+\section{The modular fixed-point ideal}
+
+The leading theorem can be strengthened by retaining the modular generators formally.  Put
+\begin{equation}\label{eq:delta}
+ \delta=LE_2-6.
+\end{equation}
+Use the natural extensions
+\begin{equation}\label{eq:abformal}
+ \alpha(E_4)=\frac{L^2E_4+12}{72},
+\end{equation}
+and
+\begin{equation}\label{eq:betaformal}
+ \beta(E_4)
+ =-\frac{7L^4E_4^2-552L^2E_4-13392}{288(L^2E_4+36)}.
+\end{equation}
+Let
+\begin{equation}\label{eq:defect}
+ \cD(X)=\bSc(X)-\alpha(E_4)\bsigma(X)-\beta(E_4)\bD(X)
+ =\frac{N(X,L,E_4,\delta,E_6,C_0)}{Q(X,L,E_4,\delta,E_6,C_0)}
+\end{equation}
+be reduced to a rational function.
+
+\begin{theorem}[Fixed-point ideal certificate]\label{thm:ideal}
+There exist explicit polynomials \(A\) and \(B\) such that
+\begin{equation}\label{eq:idealcert}
+ N=\delta A+E_6B.
+\end{equation}
+Moreover, \(Q|_{\delta=E_6=0}\) is not the zero polynomial.  Hence, on the open locus where the specialized denominator does not vanish,
+\[
+ \delta=E_6=0\quad\Longrightarrow\quad\cD=0.
+\]
+\end{theorem}
+
+\begin{proof}
+The supplementary SageMath certificate generates the normalized Ramanujan jets with \(E_2=(\delta+6)/L\), reconstructs the three channels at generic \(X\), clears denominators, and verifies \eqref{eq:idealcert} exactly.  The cleared numerator has 78 terms, while one explicit certificate has 71 terms in \(A\) and 7 in \(B\).  All calculations take place in an exact polynomial fraction field.
+\end{proof}
+
+The theorem identifies the geometric closure ideal with the two fixed-point equations visible in the modular differential ring.  It is stronger than a numerical specialization and stronger than the pair of ad hoc jet identities \eqref{eq:R1}--\eqref{eq:R5}.
+
+\section{Local rigidity and transversality}
+
+Differentiate the cleared numerator in the two formal transverse directions:
+\[
+ A_\delta(X)=\left.\frac{\partial N}{\partial\delta}\right|_{\delta=E_6=0},
+ \qquad
+ B_6(X)=\left.\frac{\partial N}{\partial E_6}\right|_{\delta=E_6=0}.
+\]
+The second derivative polynomial factors particularly simply:
+\begin{equation}\label{eq:B6}
+ B_6(X)
+ =-48C_0^2L^3(L^2E_4+36)
+ (L^2E_4+30LX+10L+18).
+\end{equation}
+
+\begin{theorem}[Rank-two functional rigidity]\label{thm:ranktwo}
+The coefficient map obtained from the \(X^3\) and \(X^1\) coefficients of the first variation has determinant
+\begin{equation}\label{eq:jacdet}
+ 29859840\,C_0^4L^7(L^2E_4+36)^2.
+\end{equation}
+Consequently, for \(C_0\ne0\), \(L>0\), and \(E_4>0\), the derivative of the functional closure equations with respect to \((\delta,E_6)\) has rank two.
+\end{theorem}
+
+\begin{proof}
+The \(X^3\) coefficient of \(A_\delta\) is
+\[
+ -20736C_0^2L^3(L^2E_4+36),
+\]
+while the \(X^1\) coefficient of \(B_6\) is
+\[
+ -1440C_0^2L^4(L^2E_4+36).
+\]
+The corresponding two-by-two coefficient Jacobian is triangular, and its determinant is \eqref{eq:jacdet}.
+\end{proof}
+
+\begin{corollary}[Local isolation]\label{cor:local}
+Fix the physical values \(L=2\pi\), \(E_4=E_4(i)\), and \(C_0\ne0\).  In a neighborhood of \((\delta,E_6)=(0,0)\), the identity \(\cD(X)\equiv0\) can hold only on the fixed-point locus \(\delta=E_6=0\), provided the rational denominators remain nonzero.
+\end{corollary}
+
+\begin{proposition}[Pointwise structure of the first variation]\label{prop:roots}
+At \(L=2\pi\) and \(E_4=E_4(i)\):
+\begin{enumerate}[label=(\roman*)]
+ \item \(A_\delta(X)\) has exactly one positive root,
+ \[
+  X_*=0.632006663517156390777280\ldots,
+ \]
+ rigorously isolated in an interval of width less than \(8.5\times10^{-25}\).
+ \item \(B_6(X)\ne0\) for every \(X>0\); its only zero is negative,
+ \[
+  X=-0.7337205663698043\ldots.
+ \]
+ \item The two polynomials have generic greatest common divisor one.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+After setting \(Y=L^2E_4(i)\), the cubic \(A_\delta/(3C_0^2)\) has coefficient signs \((-,-,+,+)\).  Descartes' rule gives exactly one positive root, and Arb real-ball bisection isolates it.  Formula \eqref{eq:B6} places the only zero of \(B_6\) on the negative axis.  The gcd calculation is exact over \(\Q(L,E_4,C_0)[X]\).
+\end{proof}
+
+The isolated root in \(A_\delta\) is only a pointwise cancellation in one artificial transverse direction.  It does not weaken the functional rank statement, and it disappears along the actual modular path.
+
+\subsection{The imaginary modular path}
+
+Let
+\[
+ \tau(y)=iy,
+ \qquad y=1\text{ at the square lattice}.
+\]
+With \(L=2\pi\) held fixed in the jet algebra and \(Y=L^2E_4(i)\), Ramanujan's equations give
+\begin{equation}\label{eq:pathderivs}
+ \delta'(1)=\frac{Y-36}{12},
+ \qquad
+ E_6'(1)=\frac{Y^2}{2L^3}.
+\end{equation}
+Therefore
+\begin{equation}\label{eq:Tpath}
+ \left.\frac{\dd N(X;iy)}{\dd y}\right|_{y=1}
+ =\delta'(1)A_\delta(X)+E_6'(1)B_6(X).
+\end{equation}
+
+\begin{theorem}[Modular-path transversality]\label{thm:path}
+At the physical square-lattice values, the cubic on the right of \eqref{eq:Tpath} has four strictly negative coefficients.  Hence
+\begin{equation}\label{eq:pathnegative}
+ \left.\frac{\dd N(X;iy)}{\dd y}\right|_{y=1}<0
+ \qquad(X\ge0),
+\end{equation}
+up to the positive factor \(C_0^2\).  Its unique real root is negative:
+\[
+ X=-0.662168746026176614723995\ldots.
+\]
+Wherever the specialized denominator in \eqref{eq:defect} is nonzero, the rational closure defect is therefore transverse to the physical imaginary modular deformation for every \(X>0\).
+\end{theorem}
+
+\begin{proof}
+The derivatives \eqref{eq:pathderivs} follow directly from \eqref{eq:Ramanujan}.  Rigorous real-ball evaluation at \(L=2\pi\), \(E_4=E_4(i)\) proves that all four cubic coefficients are negative and that the discriminant is negative.  Certified bisection isolates the unique real root on the negative axis.  Since \(N(X;i)=0\), differentiation of \(N/Q\) introduces no denominator derivative at first order.
+\end{proof}
+
+\section{Linearized finite-jet correction theory}
+
+We next perturb the six absolute jets by
+\begin{equation}\label{eq:jetperturb}
+ C_m(\varepsilon)=C_0\bigl(u_m+\varepsilon j_m\bigr),
+ \qquad m=0,\ldots,5,
+\end{equation}
+and allow
+\begin{equation}\label{eq:abperturb}
+ \alpha(\varepsilon)=\alpha_0+\varepsilon\alpha_1,
+ \qquad
+ \beta(\varepsilon)=\beta_0+\varepsilon\beta_1.
+\end{equation}
+After eliminating \(\alpha_1,\beta_1\) by interpolation, the first corrected residual is a cubic in \(X\), linear in \(j=(j_0,\ldots,j_5)\).  Its coefficient vector defines an exact linear obstruction map
+\begin{equation}\label{eq:O1}
+ \cO_1:\Q(L,E_4)^6\longrightarrow\Q(L,E_4)^4.
+\end{equation}
+
+\begin{theorem}[Six-jet correction obstruction]\label{thm:correctionkernel}
+The map \(\cO_1\) has
+\begin{equation}\label{eq:ranknullity}
+ \rank\cO_1=2,
+ \qquad
+ \dim\kerop\cO_1=4.
+\end{equation}
+Its kernel contains the independent directions
+\begin{equation}\label{eq:knowndirs}
+ j^{\mathrm{scale}}=(u_0,\ldots,u_5),
+ \qquad
+ j^{E_4}=\left(\frac{\partial u_0}{\partial E_4},\ldots,
+ \frac{\partial u_5}{\partial E_4}\right).
+\end{equation}
+After quotienting by their span, a two-dimensional space of additional formal preserving classes remains.
+\end{theorem}
+
+\begin{proof}
+The calculation is performed exactly over \(\Q(L,E_4)\) using dual numbers modulo \(\varepsilon^2\).  The four cubic coefficient equations are linear in \(j_0,\ldots,j_5\).  Their exact coefficient matrix has rank two, hence a four-dimensional right kernel.  Direct substitution verifies \eqref{eq:knowndirs}; a basis completion produces two further independent kernel vectors.
+\end{proof}
+
+The natural candidates tested in the supplement do not account for the two additional classes: the formal \(\delta\)-tangent, formal \(E_6\)-tangent, formal \(L\)-tangent with the geometry held fixed, \(q\)-translation/\(\theta\)-shift, and jet-index weighting \(j_m=mu_m\) are all obstructed.  This is negative structural information only; the two unexplained formal classes are not identified with physical Schoen corrections.
+
+\section{Genuine rational-surface degree-two data}
+
+The degree-two genus-zero rational-elliptic-surface series of \cite{HST} is
+\begin{equation}\label{eq:Z02}
+ Z_{0;2}(q)=\frac{E_2(q)}{72}B(q)^2.
+\end{equation}
+The primitive or multiple-cover-subtracted series is
+\begin{equation}\label{eq:P2}
+ P_2(q)=\widetilde Z_{0;2}(q)
+ =Z_{0;2}(q)-\frac18B(q^2).
+\end{equation}
+The stationary WDVV series denoted \(M_2\) in the rational-elliptic-surface descendent calculation of \cite{OP} contains a point insertion and should not be identified with either \eqref{eq:Z02} or \eqref{eq:P2}.  The supplementary reconstruction explicitly confirms this distinction after the torsion specialization.
+
+Define the normalized correction shape by
+\begin{equation}\label{eq:jshape}
+ \widehat j_m
+ =\frac{1}{C_0^2}(\theta^mZ_{0;2})(\e^{-2\pi}),
+ \qquad m=0,\ldots,5.
+\end{equation}
+Equivalently, if
+\[
+ v_m=\frac{\theta^mZ_{0;2}}{Z_{0;2}},
+\]
+then at \(\tau=i\),
+\begin{equation}\label{eq:jv}
+ \widehat j_m=\frac{v_m}{12L}.
+\end{equation}
+The exact expressions belong to \(\Q(L,E_4(i))\).  Their numerical values are shown in \cref{tab:jshape}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{cr}
+\toprule
+\(m\) & \(\widehat j_m\) \\
+\midrule
+0 & \(\phantom{-}0.01326291192432461131407364695\) \\
+1 & \(-0.0004302271023221540428170800802\) \\
+2 & \(-0.0004520590972240418203345383424\) \\
+3 & \(-0.0004965768255361968155397632827\) \\
+4 & \(-0.0005882067044444624396062712587\) \\
+5 & \(-0.0007793838984335739023659767682\) \\
+\bottomrule
+\end{tabular}
+\caption{Square-lattice degree-two rational-surface correction shape.  Exact rational functions of \(L\) and \(E_4(i)\) are retained in the supplementary Sage data.}
+\label{tab:jshape}
+\end{table}
+
+\begin{proposition}[One-sided degree-two obstruction]\label{prop:onesided}
+The exact correction vector \(\widehat j=(\widehat j_0,\ldots,\widehat j_5)\) obtained from \eqref{eq:Z02} does not belong to \(\kerop\cO_1\).  All four coefficients of its corrected residual cubic are nonzero before reduction to the rank-two obstruction space.
+\end{proposition}
+
+\begin{proof}
+The vector \eqref{eq:jshape} is generated exactly from Ramanujan's differential equations and substituted into the exact matrix defining \(\cO_1\).  The resulting matrix-vector product is nonzero.
+\end{proof}
+
+This proposition is the first test using a genuine enumerative correction rather than an arbitrary formal jet.  It shows that the leading two-channel closure is not preserved by the first one-sided uninserted rational-surface degree-two shape.
+
+\section{A controlled factorized Schoen degree-two test}
+
+\subsection{The tested ansatz}
+
+The full Schoen relative theory at base degree two involves relative contact data and the two partitions \((2)\) and \((1,1)\) in the degeneration formula \cite{OP}.  No claim is made here that the following factorized span equals that full contact contribution.
+
+Put
+\begin{equation}\label{eq:B2}
+ B^{[2]}(q)=B(q^2).
+\end{equation}
+The natural symmetric factorized span generated by the exact one-sided data is
+\begin{align}
+ F_A(q_1,q_2)&=P_2(q_1)P_2(q_2),\label{eq:FA}\\
+ F_B(q_1,q_2)&=B^{[2]}(q_1)B^{[2]}(q_2),\label{eq:FB}\\
+ F_C(q_1,q_2)&=P_2(q_1)B^{[2]}(q_2)+B^{[2]}(q_1)P_2(q_2).\label{eq:FC}
+\end{align}
+It contains, for example,
+\begin{equation}\label{eq:Z2product}
+ Z_{0;2}(q_1)Z_{0;2}(q_2)
+ =F_A+\frac18F_C+\frac1{64}F_B.
+\end{equation}
+
+The order-\(p^2\) Hessian calculation uses the coefficientwise extension of the leading HSS differential operator, with the twisted radial derivative \(\partial_{v_0}-2L\) and the factor \(1+2Lv_0\).  The calculation includes all quadratic order-\(p\) contributions from the inverse metric, curvature numerator, and bisectional-curvature denominator.  For a proposed degree-two term
+\[
+ aF_A+bF_B+cF_C,
+\]
+and shifted closure coefficients \(\alpha_0+p\alpha_1\), \(\beta_0+p\beta_1\), the order-\(p^2\) equation at a radial point \(X\) is
+\begin{equation}\label{eq:p2eq}
+ R_{\mathrm{quad}}(X)+aR_A(X)+bR_B(X)+cR_C(X)
+ -\alpha_1\sigma_1(X)-\beta_1D_1(X)=0.
+\end{equation}
+Thus each sample point gives one linear equation for
+\[
+ (a,b,c,\alpha_1,\beta_1).
+\]
+
+\begin{caution}\label{caution:ansatz}
+The ansatz \eqref{eq:FA}--\eqref{eq:FC} is a deliberately limited factorized model.  Failure of \eqref{eq:p2eq} in this span does not prove failure for the full \(E_8\times E_8\) relative-contact degree-two Schoen potential.
+\end{caution}
+
+\subsection{High-precision rank test}
+
+\begin{experiment}[Factorized-span inconsistency]\label{exp:rank}
+The system \eqref{eq:p2eq} was evaluated at thirteen rational radial points,
+\begin{equation}\label{eq:points}
+ 1,\frac54,\frac32,2,\frac52,
+ \frac34,\frac9{10},\frac{11}{10},\frac43,
+ \frac74,\frac94,3,4.
+\end{equation}
+Using 1280-bit real arithmetic and \(q\)-series through \(q^{2000}\), the equilibrated coefficient matrix \(A\) and augmented matrix satisfy
+\begin{equation}\label{eq:ranknumerical}
+ \rank(A)=4,
+ \qquad
+ \rank([A\mid b])=5.
+\end{equation}
+The rank profile is unchanged for pivot tolerances from \(10^{-20}\) through \(10^{-345}\).  Hence the overdetermined system is numerically inconsistent throughout the natural factorized span.
+\end{experiment}
+
+Three named candidates were also tested after fitting \(\alpha_1,\beta_1\) at two points and validating at all thirteen points.  Their relative all-point residuals are
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+Candidate & Relative residual \\
+\midrule
+\(F_A\) & \(0.7322198063913\ldots\) \\
+\(F_A+\tfrac18F_B\) & \(0.7292140125301\ldots\) \\
+\(Z_{0;2}(q_1)Z_{0;2}(q_2)\) & \(0.7296059263214\ldots\) \\
+\bottomrule
+\end{tabular}
+\end{center}
+These order-one residuals are incompatible with a hidden precision-level cancellation.
+
+\begin{remark}[Why this remains numerical]
+The calculation uses finite \(q\)-series and high-precision real arithmetic.  The rank stability, enormous precision, small value of \(q=\e^{-2\pi}\), and order-one validation residuals make the conclusion compelling for the tested model, but they do not constitute an exact symbolic or interval-certified proof.  An exact nonzero augmented minor or a real-ball enclosure excluding zero would upgrade \cref{exp:rank} to a certified statement.
+\end{remark}
+
+\section{Interpretation}
+
+The combined picture is sharper than either a universal closure or a random isolated identity.
+
+\paragraph{Leading sector.}
+The square-lattice closure is exact and generated by the fixed-point ideal
+\[
+ \langle LE_2-6,E_6\rangle.
+\]
+It is locally isolated in the two modular transverse directions and breaks at first order along the physical imaginary modular path for every \(x>0\).
+
+\paragraph{Formal correction space.}
+Among arbitrary six-jet corrections, a four-dimensional first-order preserving kernel remains.  Two directions are elementary; two are not explained by the standard modular or coordinate tangents tested here.
+
+\paragraph{Enumerative correction.}
+The genuine one-sided degree-two rational-surface correction is outside that kernel.  Thus the unexplained formal preserving classes are not automatically realized by the simplest available enumerative correction.
+
+\paragraph{Factorized Schoen test.}
+The natural factorized span generated by the primitive and double-cover rational-surface data fails to cancel the full order-\(p^2\) geometric obstruction.  Within the tested model, restoring the leading two-channel relation would require information outside that span.
+
+There are two plausible continuations.  The full relative contact terms may add a genuinely non-factorized response shape that cancels the obstruction.  Alternatively, the degree-two curvature response may require an enlarged spectral module,
+\[
+ \bSc^{(2)}\in\Span\{\bsigma,\bD,J_1,\ldots\},
+\]
+with one or more new Jacobi/contact channels.  The present paper does not choose between these alternatives.
+
+\section{Limitations and non-claims}
+
+For clarity, the following are not claimed.
+
+\begin{enumerate}[label=\arabic*.]
+ \item The factorized ansatz \eqref{eq:FA}--\eqref{eq:FC} is not asserted to be the full base-degree-two Schoen relative potential.
+ \item The high-precision rank test is not presented as an exact theorem.
+ \item The two unexplained vectors in the formal correction kernel are not identified with physical Jacobi or contact deformations.
+ \item The calculations concern the stated three-dimensional Hessian slice and its coefficientwise order-\(p^2\) extension, not the complete special-K\"ahler geometry of the full Schoen moduli space.
+ \item No claim of priority over all possible formulations of modular response reduction is made.  The precise results established here are those stated in the theorem and proposition environments above.
+\end{enumerate}
+
+These restrictions are substantive rather than cosmetic.  They isolate the exact result from the part that still depends on missing relative-contact input.
+
+\section{Reproducibility}
+
+The accompanying supplement contains standalone SageMath cells for:
+
+\begin{enumerate}[label=\texttt{S\arabic*.}]
+ \item exact fixed-point ideal membership;
+ \item exact local rank-two rigidity and certified root isolation;
+ \item certified transversality along \(\tau=iy\);
+ \item the exact six-jet correction obstruction map;
+ \item extraction of the four-dimensional preserving kernel;
+ \item the finite-\(q\) WDVV reconstruction of the stationary \(M_2\) series;
+ \item the HSS \(\gamma\)-specialization and exact one-sided degree-two jet test;
+ \item the full order-\(p^2\) factorized geometry calculation;
+ \item the rank-revealing thirteen-point continuation.
+\end{enumerate}
+
+Exact claims use rational-function arithmetic or rigorous real-ball enclosures.  The factorized gluing experiment records its precision, truncation order, sample points, rank tolerances, and validation residuals explicitly.
+
+\section*{Version note}
+
+This paper is a standalone successor to an earlier preliminary addendum deposited for timestamping.  The preliminary document was labelled incomplete and non-citable.  The present version incorporates the exact HSS torsion specialization, distinguishes exact from numerical results, and adds the fixed-point, rigidity, correction-kernel, and degree-two obstruction analyses.
+
+\appendix
+
+\section{The cubic \texorpdfstring{$\delta$}{delta}-response polynomial}
+
+For reference, put \(Y=L^2E_4\) and write
+\[
+ A_\delta(X)=3C_0^2P(X),
+ \qquad
+ P(X)=p_3X^3+p_2X^2+p_1X+p_0.
+\]
+Then
+\begin{align*}
+ p_3={}&-6912L^3(Y+36),\\
+ p_2={}&-72L^2\bigl(96LY+3456L+7Y^2-648Y-16848\bigr),\\
+ p_1={}&-24L\bigl(96L^2Y+3456L^2+14LY^2-1296LY-33696L\\
+ &\hspace{30mm}-63Y^2-1368Y-14256\bigr),\\
+ p_0={}&-256L^3Y-9216L^3-56L^2Y^2+5184L^2Y+134784L^2\\
+ &+504LY^2+10944LY+114048L+13Y^3+2916Y^2+88560Y+1135296.
+\end{align*}
+At the physical square-lattice values the signs are \((-,-,+,+)\), yielding the unique positive root in \cref{prop:roots}.
+
+\section{Rank-profile data for the factorized experiment}
+
+After common right-hand-side normalization and column/row equilibration, the observed ranks were:
+
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+Tolerance & \(\rank(A)\) & \(\rank([A\mid b])\) \\
+\midrule
+\(10^{-20}\) & 4 & 5 \\
+\(10^{-40}\) & 4 & 5 \\
+\(10^{-80}\) & 4 & 5 \\
+\(10^{-128}\) & 4 & 5 \\
+\(10^{-192}\) & 4 & 5 \\
+\(10^{-256}\) & 4 & 5 \\
+\(10^{-345}\) & 4 & 5 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The original five-point interpolation determinant was of order \(10^{-386}\) at 1280-bit precision.  The rank-revealing continuation showed that this was a hidden column dependence rather than a need for greater precision.
+
+\begin{thebibliography}{99}
+
+\bibitem{HSS}
+S.~Hosono, M.-H.~Saito, and J.~Stienstra,
+\newblock On the mirror symmetry conjecture for Schoen's Calabi--Yau 3-folds,
+\newblock in \emph{Integrable Systems and Algebraic Geometry}, World Scientific, 1998, pp.~194--235;
+\newblock arXiv:alg-geom/9709027.
+
+\bibitem{HST}
+S.~Hosono, M.-H.~Saito, and A.~Takahashi,
+\newblock Holomorphic anomaly equation and BPS state counting of rational elliptic surface,
+\newblock \emph{Advances in Theoretical and Mathematical Physics} \textbf{3} (1999), 177--208;
+\newblock arXiv:hep-th/9901151.
+
+\bibitem{OP}
+G.~Oberdieck and A.~Pixton,
+\newblock Gromov--Witten theory of elliptic fibrations: Jacobi forms and holomorphic anomaly equations,
+\newblock \emph{Geometry \& Topology} \textbf{23} (2019), 1415--1489;
+\newblock arXiv:1709.01481.
+
+\bibitem{Schoen}
+C.~Schoen,
+\newblock On fiber products of rational elliptic surfaces with section,
+\newblock \emph{Mathematische Zeitschrift} \textbf{197} (1988), 177--199.
+
+\bibitem{Ramanujan}
+S.~Ramanujan,
+\newblock On certain arithmetical functions,
+\newblock \emph{Transactions of the Cambridge Philosophical Society} \textbf{22} (1916), 159--184.
+
+\bibitem{Zagier}
+D.~Zagier,
+\newblock Elliptic modular forms and their applications,
+\newblock in \emph{The 1-2-3 of Modular Forms}, Springer, 2008, pp.~1--103.
+
+\bibitem{Sage}
+The Sage Developers,
+\newblock \emph{SageMath, the Sage Mathematics Software System},
+\newblock open-source mathematical software.
+
+\end{thebibliography}
+
+\end{document}
