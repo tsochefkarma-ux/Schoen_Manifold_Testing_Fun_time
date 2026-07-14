@@ -1,0 +1,64 @@
+EXACT DEGREE-TWO RESIDUE-TRANSPORT CERTIFICATE
+============================================================
+
+Final cleared-polynomial proof:
+
+EXACT DEGREE-TWO FAST CERTIFICATE
+intercept Rquad: True (degree <= 13)
+slope rA: True (degree <= 10)
+slope rB: True (degree <= 10)
+slope rC: True (degree <= 10)
+
+Exact identity:
+
+  Rquad(X) + a*rA(X) + b*rB(X) + c*rC(X)
+    = alpha_1(U;a,b,c)*sigma_bar(U)
+      + beta_1(U;a,b,c)*D_bar(U),
+
+  U = 3X + 1.
+
+Connection support:
+
+  alpha_1: {-3,-2,-1,0,1,2}
+  beta_1:  {-3,-2,0}
+
+Exact finite response channels:
+
+  sigma_bar(U) = C0^2 * (
+      8 L^3 U^3 - 24 L^2 U^2
+      - 3 L (L^2 E4 + 84) U
+      - 6 (L^2 E4 + 108)
+    ) / (5832 L^3 U^2)
+
+  D_bar(U) = C0^2 (L^2 E4 + 36)(L U + 3)
+             / (1944 L^3 U^2)
+
+Deepest-pole relation:
+
+  beta_-3 = rho_3 alpha_-3
+
+  rho_3 = 2(L^2 E4 + 108) / (3(L^2 E4 + 36)).
+
+Universal drift:
+
+  alpha_U  = alpha0*C0^2/(81 L)
+  alpha_U2 = -alpha0*C0^2/243
+
+  alpha_univ(U) = alpha0*C0^2/243 * U * (3/L - U)
+  beta_univ(U) = 0.
+
+Master connection coordinates:
+
+  alpha_const, beta_const, alpha_-3.
+
+Actual Laurent valuations:
+
+  ord_U(Rquad) = -3
+  ord_U(rA) = ord_U(rB) = ord_U(rC) = -2.
+
+Exact frame/volume divisor:
+
+  V(X,1,1) = 3U
+  det(g0) = 9/U^2
+  det(e,o,r) = -2U
+  e-r = -U(1,0,0).

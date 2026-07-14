@@ -1,0 +1,307 @@
+==============================================================================
+SECOND-ORDER HSS OPERATOR-ENVELOPE TEST
+Testing whether a deformed radial/theta operator can reach the p^2 defect
+==============================================================================
+
+Working real precision: 1280 bits
+Original radial equations: 13
+New validation equations: 8
+Total radial equations: 21
+Symmetric CM bi-jets through total order 6: 16
+Operator monomials: 7
+Total formal operator-jet variables: 112
+
+Building the known response system at new validation points...
+  completed 1/8 at X=2/3
+  completed 2/8 at X=4/5
+  completed 3/8 at X=6/5
+  completed 4/8 at X=8/5
+  completed 5/8 at X=13/6
+  completed 6/8 at X=7/2
+  completed 7/8 at X=5
+  completed 8/8 at X=6
+
+Known-system checks:
+  original rank(A) = 4
+  expanded rank(A) = 4
+  expanded rank([A|b]) = 5
+
+Building linear response contexts at all radial points...
+  completed 1/21 at X=1
+  completed 2/21 at X=5/4
+  completed 3/21 at X=3/2
+  completed 4/21 at X=2
+  completed 5/21 at X=5/2
+  completed 6/21 at X=3/4
+  completed 7/21 at X=9/10
+  completed 8/21 at X=11/10
+  completed 9/21 at X=4/3
+  completed 10/21 at X=7/4
+  completed 11/21 at X=9/4
+  completed 12/21 at X=3
+  completed 13/21 at X=4
+  completed 14/21 at X=2/3
+  completed 15/21 at X=4/5
+  completed 16/21 at X=6/5
+  completed 17/21 at X=8/5
+  completed 18/21 at X=13/6
+  completed 19/21 at X=7/2
+  completed 20/21 at X=5
+  completed 21/21 at X=6
+
+Building the second-order operator envelope...
+  mode 1/7: C
+    completed C acting on c_00
+    completed C acting on c_01
+    completed C acting on c_02
+    completed C acting on c_03
+    completed C acting on c_04
+    completed C acting on c_05
+    completed C acting on c_06
+    completed C acting on c_11
+    completed C acting on c_12
+    completed C acting on c_13
+    completed C acting on c_14
+    completed C acting on c_15
+    completed C acting on c_22
+    completed C acting on c_23
+    completed C acting on c_24
+    completed C acting on c_33
+  mode 2/7: L*x*C
+    completed xC acting on c_00
+    completed xC acting on c_01
+    completed xC acting on c_02
+    completed xC acting on c_03
+    completed xC acting on c_04
+    completed xC acting on c_05
+    completed xC acting on c_06
+    completed xC acting on c_11
+    completed xC acting on c_12
+    completed xC acting on c_13
+    completed xC acting on c_14
+    completed xC acting on c_15
+    completed xC acting on c_22
+    completed xC acting on c_23
+    completed xC acting on c_24
+    completed xC acting on c_33
+  mode 3/7: L^2*x^2*C
+    completed x2C acting on c_00
+    completed x2C acting on c_01
+    completed x2C acting on c_02
+    completed x2C acting on c_03
+    completed x2C acting on c_04
+    completed x2C acting on c_05
+    completed x2C acting on c_06
+    completed x2C acting on c_11
+    completed x2C acting on c_12
+    completed x2C acting on c_13
+    completed x2C acting on c_14
+    completed x2C acting on c_15
+    completed x2C acting on c_22
+    completed x2C acting on c_23
+    completed x2C acting on c_24
+    completed x2C acting on c_33
+  mode 4/7: L*(y*theta_y+z*theta_z)C
+    completed theta1 acting on c_00
+    completed theta1 acting on c_01
+    completed theta1 acting on c_02
+    completed theta1 acting on c_03
+    completed theta1 acting on c_04
+    completed theta1 acting on c_05
+    completed theta1 acting on c_06
+    completed theta1 acting on c_11
+    completed theta1 acting on c_12
+    completed theta1 acting on c_13
+    completed theta1 acting on c_14
+    completed theta1 acting on c_15
+    completed theta1 acting on c_22
+    completed theta1 acting on c_23
+    completed theta1 acting on c_24
+    completed theta1 acting on c_33
+  mode 5/7: L^2*x*(y*theta_y+z*theta_z)C
+    completed xtheta1 acting on c_00
+    completed xtheta1 acting on c_01
+    completed xtheta1 acting on c_02
+    completed xtheta1 acting on c_03
+    completed xtheta1 acting on c_04
+    completed xtheta1 acting on c_05
+    completed xtheta1 acting on c_06
+    completed xtheta1 acting on c_11
+    completed xtheta1 acting on c_12
+    completed xtheta1 acting on c_13
+    completed xtheta1 acting on c_14
+    completed xtheta1 acting on c_15
+    completed xtheta1 acting on c_22
+    completed xtheta1 acting on c_23
+    completed xtheta1 acting on c_24
+    completed xtheta1 acting on c_33
+  mode 6/7: L^2*(y^2*theta_y^2+z^2*theta_z^2)C
+    completed theta2_diag acting on c_00
+    completed theta2_diag acting on c_01
+    completed theta2_diag acting on c_02
+    completed theta2_diag acting on c_03
+    completed theta2_diag acting on c_04
+    completed theta2_diag acting on c_05
+    completed theta2_diag acting on c_06
+    completed theta2_diag acting on c_11
+    completed theta2_diag acting on c_12
+    completed theta2_diag acting on c_13
+    completed theta2_diag acting on c_14
+    completed theta2_diag acting on c_15
+    completed theta2_diag acting on c_22
+    completed theta2_diag acting on c_23
+    completed theta2_diag acting on c_24
+    completed theta2_diag acting on c_33
+  mode 7/7: L^2*y*z*theta_y*theta_z C
+    completed theta2_mix acting on c_00
+    completed theta2_mix acting on c_01
+    completed theta2_mix acting on c_02
+    completed theta2_mix acting on c_03
+    completed theta2_mix acting on c_04
+    completed theta2_mix acting on c_05
+    completed theta2_mix acting on c_06
+    completed theta2_mix acting on c_11
+    completed theta2_mix acting on c_12
+    completed theta2_mix acting on c_13
+    completed theta2_mix acting on c_14
+    completed theta2_mix acting on c_15
+    completed theta2_mix acting on c_22
+    completed theta2_mix acting on c_23
+    completed theta2_mix acting on c_24
+    completed theta2_mix acting on c_33
+
+Operator construction checks:
+  current-operator recombination error vs cell 19 = 4.963161657267660707385351355649132982985056544546791136037408556100540809179109359080399529975852770807442935686937223182025106833123574952217566270027436402530761676779780625721207956669888074563502921640974768276627041383846178356873281057081433437929011958923552871305103990454452781459568105503339894788606356584362143946529130138328489908979893617847839764743001644160492270143954e-384
+  current-operator magnitude from new total-order-6 jets = 0.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  recombination certified at 1e-80? True
+
+Second-order operator reachability ladder:
+------------------------------------------------------------------------------
+CURRENT COEFFICIENTWISE HSS OPERATOR
+  operator: C + 2 L x C + L(y theta_y+z theta_z)C
+  original 13 points: rank(A)=5 rank([A|b])=6
+  expanded 21 points: rank(A)=5 rank([A|b])=6
+  operator quotient rank: 1
+  closes all 21 equations? False
+  row-saturated interpolation? False
+  non-saturated structural closure? False
+  stable expanded rank profile:
+    1e-30  : rank(A)=5 rank([A|b])=6
+    1e-70  : rank(A)=5 rank([A|b])=6
+    1e-120 : rank(A)=5 rank([A|b])=6
+    1e-192 : rank(A)=5 rank([A|b])=6
+    1e-345 : rank(A)=5 rank([A|b])=6
+------------------------------------------------------------------------------
+INDEPENDENT ZEROTH/FIRST-ORDER OPERATOR ENVELOPE
+  modes: ['C', 'xC', 'theta1']
+  original 13 points: rank(A)=5 rank([A|b])=6
+  expanded 21 points: rank(A)=5 rank([A|b])=6
+  operator quotient rank: 1
+  closes all 21 equations? False
+  row-saturated interpolation? False
+  non-saturated structural closure? False
+  stable expanded rank profile:
+    1e-30  : rank(A)=5 rank([A|b])=6
+    1e-70  : rank(A)=5 rank([A|b])=6
+    1e-120 : rank(A)=5 rank([A|b])=6
+    1e-192 : rank(A)=5 rank([A|b])=6
+    1e-345 : rank(A)=5 rank([A|b])=6
+------------------------------------------------------------------------------
++ RADIAL QUADRATIC x^2 C
+  modes: ['C', 'xC', 'theta1', 'x2C']
+  original 13 points: rank(A)=6 rank([A|b])=7
+  expanded 21 points: rank(A)=6 rank([A|b])=7
+  operator quotient rank: 2
+  closes all 21 equations? False
+  row-saturated interpolation? False
+  non-saturated structural closure? False
+  stable expanded rank profile:
+    1e-30  : rank(A)=6 rank([A|b])=7
+    1e-70  : rank(A)=6 rank([A|b])=7
+    1e-120 : rank(A)=6 rank([A|b])=7
+    1e-192 : rank(A)=6 rank([A|b])=7
+    1e-345 : rank(A)=6 rank([A|b])=7
+------------------------------------------------------------------------------
++ RADIAL-THETA COUPLING x Theta
+  modes: ['C', 'xC', 'theta1', 'x2C', 'xtheta1']
+  original 13 points: rank(A)=7 rank([A|b])=8
+  expanded 21 points: rank(A)=7 rank([A|b])=8
+  operator quotient rank: 3
+  closes all 21 equations? False
+  row-saturated interpolation? False
+  non-saturated structural closure? False
+  stable expanded rank profile:
+    1e-30  : rank(A)=7 rank([A|b])=8
+    1e-70  : rank(A)=7 rank([A|b])=8
+    1e-120 : rank(A)=7 rank([A|b])=8
+    1e-192 : rank(A)=7 rank([A|b])=8
+    1e-345 : rank(A)=7 rank([A|b])=8
+------------------------------------------------------------------------------
++ SECOND-THETA DIAGONAL
+  modes: ['C', 'xC', 'theta1', 'x2C', 'xtheta1', 'theta2_diag']
+  original 13 points: rank(A)=7 rank([A|b])=8
+  expanded 21 points: rank(A)=7 rank([A|b])=8
+  operator quotient rank: 3
+  closes all 21 equations? False
+  row-saturated interpolation? False
+  non-saturated structural closure? False
+  stable expanded rank profile:
+    1e-30  : rank(A)=7 rank([A|b])=8
+    1e-70  : rank(A)=7 rank([A|b])=8
+    1e-120 : rank(A)=7 rank([A|b])=8
+    1e-192 : rank(A)=7 rank([A|b])=8
+    1e-345 : rank(A)=7 rank([A|b])=8
+------------------------------------------------------------------------------
+FULL SECOND-ORDER SYMMETRIC OPERATOR ENVELOPE
+  modes: ['C', 'xC', 'x2C', 'theta1', 'xtheta1', 'theta2_diag', 'theta2_mix']
+  original 13 points: rank(A)=7 rank([A|b])=8
+  expanded 21 points: rank(A)=7 rank([A|b])=8
+  operator quotient rank: 3
+  closes all 21 equations? False
+  row-saturated interpolation? False
+  non-saturated structural closure? False
+  stable expanded rank profile:
+    1e-30  : rank(A)=7 rank([A|b])=8
+    1e-70  : rank(A)=7 rank([A|b])=8
+    1e-120 : rank(A)=7 rank([A|b])=8
+    1e-192 : rank(A)=7 rank([A|b])=8
+    1e-345 : rank(A)=7 rank([A|b])=8
+
+Minimal operator-mode subset search on all 21 points:
+  no non-saturated operator-mode subset closes all 21 equations
+  no operator-mode subset closes even by row saturation
+
+Full-envelope observable quotient structure:
+  quotient rank: 3
+  full rank: 7
+  augmented rank: 8
+  consistent: False
+  quotient pivot variables:
+    u_x2C_00
+    u_theta1_13
+    u_xtheta1_13
+
+==============================================================================
+SECOND-ORDER HSS OPERATOR-ENVELOPE SUMMARY
+  family                                             q-rank  rank(A)  rank([A|b])  structural
+  CURRENT COEFFICIENTWISE HSS OPERATOR                 1        5          6       False
+  INDEPENDENT ZEROTH/FIRST-ORDER OPERATOR ENVELOPE     1        5          6       False
+  + RADIAL QUADRATIC x^2 C                             2        6          7       False
+  + RADIAL-THETA COUPLING x Theta                      3        7          8       False
+  + SECOND-THETA DIAGONAL                              3        7          8       False
+  FULL SECOND-ORDER SYMMETRIC OPERATOR ENVELOPE        3        7          8       False
+
+Interpretive diagnostics:
+  current operator reproduces cell 19? True
+  current operator closes expanded system? False
+  full quadratic operator envelope closes? False
+  full-envelope closure non-saturated? False
+  minimal non-saturated closing mode subsets: []
+  full-envelope quotient pivot variables: ['u_x2C_00', 'u_theta1_13', 'u_xtheta1_13']
+
+==============================================================================
+SUCCESS
+The complete symmetric radial/theta operator envelope through order two
+was tested on the original points and eight independent validation points.
+Copy the summary, minimal-subset search, and quotient pivot variables back.
+==============================================================================
