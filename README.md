@@ -246,8 +246,8 @@ These manuscripts are part of one continuous project. Until formal bibliographic
 A repository-level citation may be written as:
 
 ```text
-[Author], “Square-Lattice Spectral–Curvature Closure in an HSS-Motivated
-Schoen Sector,” Parts I–III, GitHub repository, [year].
+W.Ratcliffe, “Square-Lattice Spectral–Curvature Closure in an HSS-Motivated
+Schoen Sector,” Parts I–III, https://github.com/tsochefkarma-ux/Schoen_Manifold_Testing_Fun_time/tree/main, 2026.
 ```
 
 Individual BibTeX entries can be added once author, year, and archival identifiers are finalized.
