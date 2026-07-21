@@ -1,0 +1,53 @@
+PAPER IV CERTIFICATE SUMMARY
+
+EXACT DEGREE-TWO BASELINE
+- complete one-sided ambiguity dimension: 2
+- complete symmetric ambiguity dimension: 3
+- exact transfer rank: 9/9
+- bare selectivity: 0
+- no cubic pole: consistent, dimension 2
+- no cubic/quadratic poles: consistent, dimension 1
+- pole-free transport: inconsistent
+- pure universal transport: inconsistent
+
+EXACT DEGREE-THREE TORSION SPECIALIZATION
+- global one-sided weight/index: 16/3
+- global one-sided dimension: 6
+- global symmetric dimension: 21
+- specialization relation:
+  3 E6^2 A3 - 3 E4^3 A3 - 6 E4^2 A1 A2
+  - 10 E6 A1 B2 + 16 E4 A1^3 = 0
+- global identity rejected: Phi(tau,0)=12096 E4 Delta
+- intrinsic correction: q_t^4, weight unchanged
+- common group: Gamma(3), index 24
+- conservative Sturm bound: 32
+- certified cutoff: q^40
+- all-orders torsion-specialization identity: PASS
+- exact one-sided observable dimension: 5
+- exact symmetric observable dimension: 15
+- parked sectors faithful on quotient: PASS
+
+HIGH-PRECISION GEOMETRIC RESPONSE
+- CM jet final-cutoff change: 4.2730e-65
+- scalar ambiguity-response rank: 2/15
+- information-loss ranks:
+  raw tensor 15, Kahler jet 15, metric 12, connection 10,
+  eigen channels 2, spectral channels 2, curvature primitives 14,
+  scalar curvature 2, transport triplet 2, defect 2
+- exchange decomposition: 14 even + 1 odd
+- degree-two tensorial parity adds physical selectivity: False
+
+EXACT RECONSTRUCTION ATLAS
+- torsion-summed finite coefficient rank: 9/15 through q^40
+- viable single extra sectors:
+  (one,omega), (one,omega2), (omega,omega2)
+- preferred extra sector: (omega,omega2)
+- exact invertible coefficient request:
+  (one,one): q^-6 through q^2
+  (omega,omega2): q^-4,q^-3,q^-2,q^-1,q^0,q^2
+- one additional sector supplies the six directions invisible to the torsion sum
+
+NOT YET CLAIMED
+- no new mixed-sector q-series has yet been derived
+- BKOS-to-HSS variable and multicover dictionary remains to be certified
+- geometric rank ladder is not yet an exact symbolic theorem

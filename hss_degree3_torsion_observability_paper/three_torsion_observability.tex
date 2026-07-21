@@ -1,0 +1,718 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools,mathrsfs}
+\usepackage{booktabs,array,longtable,multirow}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\hypersetup{
+  pdftitle={Three-Torsion Observability and the Limits of Residue Transport in a Degree-Three HSS-Motivated Schoen Sector},
+  pdfsubject={Exact specialization kernels, selectivity bounds, and a reconstruction atlas}
+}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{certificate}[theorem]{Certificate}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{caution}[theorem]{Scope caution}
+\newtheorem{status}[theorem]{Status statement}
+
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\Span}{\operatorname{span}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\ord}{\operatorname{ord}}
+\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\kerop}{\operatorname{ker}}
+\newcommand{\wt}{\operatorname{wt}}
+
+\title{\textbf{Three-Torsion Observability and the Limits of Residue Transport\\in a Degree-Three HSS-Motivated Schoen Sector}\\[2mm]
+\large Part IV: Exact Specialization Kernels, Selectivity Bounds, and a Reconstruction Atlas}
+% Insert the author's name before public release.
+% \author{Author Name}
+\author{}
+\date{21 July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The preceding paper in this series proved exact degree-two residue transport in a symmetry-reduced Hessian model motivated by the Hosono--Saito--Stienstra sector of Schoen's Calabi--Yau threefold.  The present work asks the inverse question: does transport determine the enumerative input, and can the same mechanism reconstruct torsion-resolved degree-three series?
+
+We first complete an exact degree-two selectivity audit.  The two one-sided degree-two functions span the full admissible weight-ten, index-two ambiguity, their symmetric square is the complete three-dimensional factorized ambiguity, and the nine-coefficient Laurent transfer map is bijective onto its nine-dimensional support space.  Hence bare degree-two transport has selectivity zero.  The polar connection nevertheless obeys an exact hierarchy: cancellation of the cubic pole leaves a two-dimensional geometry family, cancellation through quadratic order leaves a one-dimensional family, and complete pole-freeness is impossible.
+
+At degree three, the one-sided holomorphic weight-sixteen, index-three ambiguity has a six-element global basis.  On the canonical HSS order-three torsion sections these six functions satisfy the all-orders specialization relation
+\[
+3E_6^2A_3-3E_4^3A_3-6E_4^2A_1A_2-10E_6A_1B_2+16E_4A_1^3=0.
+\]
+The relation is not global: at the zero elliptic point it equals $12096E_4\Delta$.  A modularity audit derives the intrinsic $q_t^4$ torsion correction, the common subgroup $\Gamma(3)$, its index $24$, and a conservative Sturm bound $32$; exact vanishing through the certified cutoff $q^{40}$ therefore promotes the specialization relation to all orders.  The one-sided HSS image has dimension five and the symmetric observable quotient has dimension fifteen.
+
+The two parked character sectors $(\omega,\omega)$ and $(\omega,\omega^2)$ are faithful on this quotient.  However, a 320-bit curvature-response census shows that the scalar defect sees only two of the fifteen directions.  The full K\"ahler jet retains rank fifteen, curvature primitives retain rank fourteen, and the missing direction is exchange odd.  A degree-two tensorial calibration shows that this parity completion restores observability but does not create physical selectivity.
+
+Finally, exact cyclotomic linear algebra yields a reconstruction atlas.  The torsion-summed sector supplies a rank-nine finite coefficient map, while one additional mixed character sector supplies the six complementary directions.  An explicit invertible $15\times15$ coefficient matrix shows that nine coefficients from $(1,1)$ and six from $(\omega,\omega^2)$ reconstruct every observable degree-three ambiguity coefficient.  We do not claim that the mixed sector has already been derived; rather, the paper isolates the precise minimal external data needed for the next stage.
+\end{abstract}
+
+\section{Introduction}
+
+This paper is the fourth part of a sequence on modular spectral--curvature closure in an HSS-motivated Schoen sector.  Part I established an exact leading CM-point closure.  Part II found a robust degree-two obstruction when the degree-two response coefficients were held constant.  Part III resolved that obstruction by a finite Laurent connection over the unique volume/frame divisor
+\[
+U=3X+1.
+\]
+The present paper studies what that positive theorem does and does not imply as an inverse principle.
+
+The distinction between \emph{closure} and \emph{selectivity} is central.  A connection can close a defect because the response module is large enough to absorb it, without determining the underlying enumerative series.  At degree two the transfer matrix is bijective onto the complete Laurent support, so bare closure imposes no condition once the support bound is satisfied.  This observation forces a more disciplined degree-three programme: before attempting to reconstruct unknown torsion-resolved series, one must count the ambiguity space, quotient by specialization kernels, determine the rank of the geometric observables, and identify exactly which external or structural inputs can complete the reconstruction.
+
+The enumerative setting is supported by the quasi-Jacobi structure of elliptic fibrations.  Oberdieck and Pixton show that the rational elliptic surface potentials are governed by $E_8$ quasi-Jacobi forms and that the relative Schoen potentials are $E_8\times E_8$ quasi-bi-Jacobi forms satisfying a holomorphic anomaly equation \cite{OberdieckPixton}.  Wang's fixed-index structure theorem for $W(E_8)$-invariant Jacobi forms provides the finite ambiguity modules used below \cite{Wang}.  Sakai's explicit generators $A_m,B_m$ supply the torsion-specialized series \cite{Sakai}.  The torsion-resolved mirror calculations of Braun, Kreuzer, Ovrut, and Scheidegger provide the natural external comparison target \cite{BKOSA,BKOSB}.
+
+\subsection*{Logical status}
+
+The results fall into three classes.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{p{0.48\textwidth}p{0.17\textwidth}p{0.25\textwidth}}
+\toprule
+Statement & Status & Method \\
+\midrule
+Complete degree-two ambiguity and zero bare selectivity & exact & module enumeration and exact transfer determinant \\
+Degree-two polar hierarchy & exact & Laurent identities and good-reduction certificates \\
+Global degree-three ambiguity dimension $6$ & exact & fixed-index $E_8$ Jacobi module \\
+Three-torsion specialization relation & exact, all orders & exact $q$-series plus modularity/Sturm audit \\
+Observable symmetric dimension $15$ & exact & quotient and finite full-rank witness \\
+Parked-sector faithfulness on the quotient & exact & cyclotomic coefficient matrix of rank $15$ \\
+Scalar response rank ceiling $2$ & high precision & 320-bit CM/Laurent response census \\
+Information-loss ladder and $14+1$ parity split & high precision & stable ranks at $10^{-30}$--$10^{-50}$ \\
+Minimal $9+6$ coefficient reconstruction atlas & exact finite linear algebra & invertible cyclotomic $15\times15$ minor \\
+Actual mixed-sector enumerative coefficients & not obtained & reserved for Part V \\
+\bottomrule
+\end{tabular}
+\caption{Status of the principal statements.  ``Exact'' refers to symbolic, rational, finite-field, or cyclotomic arithmetic with a finite proof certificate.}
+\label{tab:status}
+\end{table}
+
+\section{Degree-two inverse calibration}
+
+\subsection{The complete admissible ambiguity}
+
+At genus zero and base degree two, the relevant one-sided holomorphic ambiguity has weight $10$ and index $2$.  The fixed-index $E_8$ Jacobi module is generated over level-one modular forms by
+\[
+A_2,\qquad B_2,\qquad A_1^2,
+\]
+with weights $4,6,8$.  To reach weight $10$, the first two can be multiplied by $E_6$ and $E_4$, while $A_1^2$ would require a weight-two level-one modular form.  Since $M_2(\mathrm{SL}_2(\mathbb Z))=0$, the admissible one-sided ambiguity is two-dimensional:
+\begin{equation}\label{eq:degree2module}
+J^{W(E_8)}_{10,2}=\Span\{E_6A_2,E_4B_2\}.
+\end{equation}
+
+On the HSS specialization used in Parts II and III, the two corresponding series are represented by
+\[
+P_2(q),\qquad B(q^2).
+\]
+Their $q^0,q^1$ coefficient matrix is
+\[
+\begin{pmatrix}
+0&9\\
+-18&0
+\end{pmatrix},
+\qquad \det=162\neq0.
+\]
+Hence they are independent and span the complete one-sided ambiguity.
+
+The complete symmetric factorized degree-two space is therefore
+\begin{equation}\label{eq:degree2sym}
+\Sym^2\Span\{P_2,B(q^2)\}
+=\Span\{F_A,F_B,F_C\},
+\end{equation}
+where
+\begin{align*}
+F_A&=P_2(y)P_2(z),\\
+F_B&=B(y^2)B(z^2),\\
+F_C&=P_2(y)B(z^2)+B(y^2)P_2(z).
+\end{align*}
+Thus the three-parameter family studied in Part III was not a selected subfamily; it was the full admissible symmetric ambiguity.
+
+\subsection{The nine-dimensional transfer map}
+
+The two exact leading channels are finite Laurent polynomials,
+\[
+\overline\sigma=s_{-2}U^{-2}+s_{-1}U^{-1}+s_0+s_1U,
+\qquad
+\overline D=d_{-2}U^{-2}+d_{-1}U^{-1}.
+\]
+The minimal degree-two connection has nine coefficients:
+\begin{align*}
+\alpha(U)&=\alpha_{-3}U^{-3}+\alpha_{-2}U^{-2}+\alpha_{-1}U^{-1}
++\alpha_0+\alpha_1U+\alpha_2U^2,\\
+\beta(U)&=\beta_{-3}U^{-3}+\beta_{-2}U^{-2}+\beta_0.
+\end{align*}
+Multiplication defines a linear map
+\[
+\mathsf T_2:\K^9\longrightarrow \cR_{[-5,3]},
+\qquad
+(\alpha,\beta)\longmapsto \alpha\overline\sigma+\beta\overline D.
+\]
+The exact determinant is
+\begin{equation}\label{eq:Tdet}
+\det\mathsf T_2
+=-\frac{C_0^{18}(Y-108)(Y+36)^3}
+{980170052528609401200979968\,L^{10}},
+\end{equation}
+up to the orientation convention for the basis.  It is generically nonzero at the physical CM point.
+
+\begin{theorem}[Exact degree-two zero selectivity]\label{thm:d2zero}
+The transfer map $\mathsf T_2$ is an isomorphism from the nine-dimensional connection module to the nine-dimensional Laurent support space $\cR_{[-5,3]}$.  Consequently the complete three-dimensional admissible degree-two ambiguity is absorbed by bare transport, and
+\[
+s_{\mathrm{bare}}^{(2)}=0.
+\]
+\end{theorem}
+
+\begin{proof}
+Equation \eqref{eq:Tdet} proves $\rank\mathsf T_2=9$.  Since $\dim\cR_{[-5,3]}=9$, the map is bijective.  Every admissible degree-two defect already lies in this support space by the exact Part III certificate, so adjoining its three ambiguity columns cannot increase the rank.
+\end{proof}
+
+\subsection{Exact polar hierarchy}
+
+The absence of bare selectivity does not make the connection structure trivial.  Exact Laurent matching gives
+\begin{equation}\label{eq:rho}
+\beta_{-3}=\rho_3\alpha_{-3},
+\qquad
+\rho_3=\frac{2(Y+108)}{3(Y+36)},
+\end{equation}
+and
+\begin{equation}\label{eq:beta2}
+\beta_{-2}=\frac{L}{9}\alpha_{-3}+\rho_3\alpha_{-2}.
+\end{equation}
+For the three geometry-slope columns,
+\begin{equation}\label{eq:alpha1dep}
+\alpha_{-1}
+=\frac{L^2(Y-36)}{18(Y+108)}\alpha_{-3}
+-\frac{L(Y+36)}{6(Y+108)}\alpha_{-2}.
+\end{equation}
+The intercept has an additional nonzero residual at order $U^{-3}$.
+
+\begin{theorem}[Degree-two residue-minimality hierarchy]\label{thm:polar}
+Inside the complete three-dimensional symmetric ambiguity space:
+\begin{enumerate}[label=(\roman*)]
+\item cancelling the cubic pole imposes one independent condition and leaves a two-dimensional family;
+\item cancelling cubic and quadratic poles imposes two independent conditions and leaves a one-dimensional family;
+\item complete pole-freeness is inconsistent;
+\item pure universal transport is inconsistent.
+\end{enumerate}
+All $32$ subsets of the five named polar coefficients are classified, with no unresolved cases.
+\end{theorem}
+
+\begin{remark}
+This hierarchy is a structural classification, not a reconstruction theorem.  The physical degree-two family is not selected by bare closure, and the strongest pole-minimality conditions are not satisfied by every admissible geometry.
+\end{remark}
+
+\section{The degree-three Jacobi ambiguity}
+
+\subsection{Global one-sided basis}
+
+At genus zero and base degree three, the one-sided weight/index pair is
+\[
+(16,3).
+\]
+For index $3$, the small-index module is generated over $M_*(\mathrm{SL}_2(\mathbb Z))$ by
+\[
+A_3,\quad B_3,\quad A_1A_2,\quad A_1B_2,\quad A_1^3,
+\]
+with weights $4,6,8,10,12$.  At total weight $16$, the resulting basis is
+\begin{align}
+ h_1&=E_6^2A_3, & h_2&=E_4^3A_3, & h_3&=E_4E_6B_3,\label{eq:h123}\\
+ h_4&=E_4^2A_1A_2, & h_5&=E_6A_1B_2, & h_6&=E_4A_1^3.\label{eq:h456}
+\end{align}
+The $A_3$ generator has two independent modular multipliers of weight $12$, namely $E_4^3$ and $E_6^2$, while each remaining generator has a unique compatible multiplier.  Therefore
+\begin{equation}\label{eq:globaldim6}
+\dim J^{W(E_8)}_{16,3}=6.
+\end{equation}
+
+\subsection{Shared symmetric bi-Jacobi model}
+
+The two parked character sectors are evaluations of one symmetric Schoen potential, not independent objects.  Write
+\[
+H(y,z)=\sum_{1\le i\le j\le6}c_{ij}
+\begin{cases}
+h_i(y)h_i(z),&i=j,\\
+h_i(y)h_j(z)+h_j(y)h_i(z),&i<j.
+\end{cases}
+\]
+The global shared coefficient vector therefore has dimension
+\begin{equation}\label{eq:global21}
+\dim\Sym^2(\K^6)=\binom{7}{2}=21.
+\end{equation}
+The initially possible count $42$ would double-count the same symmetric potential.
+
+\section{The HSS three-torsion specialization}
+
+\subsection{Canonical sections and exact series}
+
+Let
+\[
+\gamma=(1,1,1,1,1,1,1,-1)
+\]
+in the $E_8$ lattice coordinates used by the explicit theta construction.  The canonical order-three HSS sections are
+\begin{equation}\label{eq:torsionsections}
+\tau=3t,
+\qquad
+z_r=t\gamma+\frac r3\gamma,
+\qquad r=0,1,2.
+\end{equation}
+The computational labels are
+\[
+r=0:\ \mathbf 1,
+\qquad r=1:\ \omega,
+\qquad r=2:\ \omega^2.
+\]
+The label $\mathbf1$ denotes the $r=0$ section $z=t\gamma$; it is not the zero elliptic point.
+
+Sakai's formulas for $A_1,A_2,A_3,B_2,B_3$ were implemented over $\Q(\zeta_{12})$.  The normalization checks
+\[
+A_m(\tau,0)=E_4(\tau),
+\qquad
+B_m(\tau,0)=E_6(\tau)
+\]
+passed exactly for the required indices.  The $A_3$ Hecke coefficient is $1/84$ for the divided-argument sum.
+
+\subsection{The specialization-kernel relation}
+
+Define
+\begin{equation}\label{eq:Phi}
+\Phi
+=3h_1-3h_2-6h_4-10h_5+16h_6.
+\end{equation}
+Exact coefficient arithmetic through the certified cutoff $q_t^{40}$ gives
+\[
+\Phi\big|_{z=z_r}=0
+\qquad(r=0,1,2).
+\]
+The relation is homogeneous of weight $16$ and index $3$.
+
+It is not a global Jacobi identity.  At the zero elliptic point,
+\begin{align}
+\Phi(\tau,0)
+&=3E_4E_6^2-3E_4^4-6E_4^4-10E_4E_6^2+16E_4^4\notag\\
+&=7E_4(E_4^3-E_6^2)\notag\\
+&=12096E_4\Delta\neq0.\label{eq:negativecontrol}
+\end{align}
+Thus $\Phi$ generates a kernel only after the HSS order-three torsion specialization.
+
+\subsection{Modularity audit and all-orders promotion}
+
+The scalar Jacobi index along the line $z=s\gamma$ is
+\[
+3Q(\gamma)=12.
+\]
+For the section $z=(\tau+r)\gamma/3$, the intrinsic exponential correction is
+\[
+\exp\left(2\pi\ii\frac43\tau\right).
+\]
+After $\tau=3t$, this becomes $q_t^4$.  This is a Jacobi translation correction, not multiplication by $\Delta$ or an eta product; the modular weight remains $16$.
+
+The three torsion pairs have common stabilizer $\Gamma(3)$ in the $\tau$ variable.  The exact audit gives
+\[
+[\mathrm{SL}_2(\mathbb Z):\Gamma(3)]=24,
+\]
+width $3$ at infinity, and local parameter
+\[
+\exp(2\pi\ii\tau/3)=q_t.
+\]
+The corrected specializations are holomorphic at all cusps by the torsion-specialization theorem.  The conservative Sturm bound is
+\begin{equation}\label{eq:sturm}
+\left\lfloor\frac{16\cdot24}{12}\right\rfloor=32.
+\end{equation}
+The certified exact expansion through $q_t^{40}$ exceeds this bound.
+
+\begin{theorem}[All-orders HSS three-torsion relation]\label{thm:torsionrelation}
+For each of the three sections \eqref{eq:torsionsections},
+\begin{equation}\label{eq:allorders}
+3E_6^2A_3-3E_4^3A_3-6E_4^2A_1A_2
+-10E_6A_1B_2+16E_4A_1^3=0
+\end{equation}
+holds to all orders in $q_t$.  The identity is a specialization-kernel relation and not a global $E_8$ Jacobi-form identity.
+\end{theorem}
+
+\begin{proof}
+After the intrinsic $q_t^4$ correction, each specialization is a weight-sixteen holomorphic modular form on $\Gamma(3)$.  Exact vanishing through the Sturm bound \eqref{eq:sturm} proves identical vanishing.  Equation \eqref{eq:negativecontrol} excludes a global identity.
+\end{proof}
+
+\subsection{The exact fifteen-dimensional observable quotient}
+
+The relation \eqref{eq:allorders} eliminates $h_6$:
+\begin{equation}\label{eq:h6elim}
+h_6=-\frac{3}{16}h_1+\frac{3}{16}h_2+\frac38h_4+\frac58h_5.
+\end{equation}
+The one-sided HSS image is exactly five-dimensional.  Hence
+\begin{equation}\label{eq:dim15}
+\dim\Sym^2(\cV_{\mathrm{HSS},3})
+=\binom{6}{2}=15.
+\end{equation}
+
+\begin{corollary}[Exact observable dimension]\label{cor:15}
+The global symmetric coefficient space of dimension $21$ has a six-dimensional kernel under the canonical HSS three-torsion specialization, and the observable quotient has dimension $15$.
+\end{corollary}
+
+The two parked sectors $(\omega,\omega)$ and $(\omega,\omega^2)$ have combined coefficient rank $15$ already in the finite coefficient window.  Since $15$ is the exact quotient dimension, this proves all-orders faithfulness on the quotient.
+
+\begin{proposition}[Parked-sector faithfulness]\label{prop:faithful}
+The evaluation map
+\[
+\cV_{\mathrm{obs},3}
+\longrightarrow
+\cE_{(\omega,\omega)}\oplus\cE_{(\omega,\omega^2)}
+\]
+is injective.  No nonzero observable ambiguity direction is invisible to both parked sectors.
+\end{proposition}
+
+\section{Selectivity of the degree-three scalar observable}
+
+\subsection{CM jets and response columns}
+
+The five reduced one-sided basis functions were evaluated at $t=i$ with
+\[
+q_0=\e^{-2\pi}
+\]
+and differentiated through $\theta^6$.  The degree-one $B$ channel was prepared through $\theta^7$.  At $256$ bits, the maximum final-cutoff jet change was
+\[
+4.27\times10^{-65}.
+\]
+The fifteen symmetric CM tensors were then propagated through the degree-three K\"ahler, metric, connection, spectral, and curvature calculations.
+
+For a connection-response matrix $T$ and ambiguity-response matrix $G$, the relevant selectivity is
+\begin{equation}\label{eq:selectivity}
+s=\rank[T\mid G]-\rank T.
+\end{equation}
+At degree two, \cref{thm:d2zero} gives $s=0$ for the complete admissible ambiguity.
+
+\subsection{Rank-two scalar ceiling}
+
+A first Laurent census showed that the degree-three response has an infinite regular tail: every column remained nonzero at the upper census boundary.  A larger $320$-bit audit through $U^{32}$ found stable ranks
+\[
+\rank G_{(\omega,\omega)}=1,
+\qquad
+\rank G_{(\omega,\omega^2)}=1,
+\]
+and
+\begin{equation}\label{eq:rank2}
+\rank G_{\mathrm{scalar}}=2/15.
+\end{equation}
+The rank-one sectorwise factorization residuals were below $1.2\times10^{-96}$.
+
+\begin{certificate}[Scalar selectivity ceiling]\label{cert:rank2}
+For the computed symmetric CM scalar-curvature observable, the fifteen ambiguity columns span a two-dimensional numerical response space.  Therefore every connection model satisfies
+\[
+s_{\mathrm{scalar}}\le2.
+\]
+In particular, this scalar observable alone cannot reconstruct the fifteen observable ambiguity coefficients.
+\end{certificate}
+
+\begin{caution}
+The rank statement is a high-precision computational certificate, not yet a symbolic rational-function theorem.  Its stability across windows and tolerances makes it a strong structural result, but it is separated from the exact claims of \cref{thm:torsionrelation,cor:15,prop:faithful}.
+\end{caution}
+
+\subsection{Information-loss ladder}
+
+The rank census at tolerance $10^{-40}$ gave
+\begin{equation}\label{eq:rankladder}
+\begin{array}{c|c}
+\text{observable layer}&\text{combined rank}\\
+\hline
+\text{raw CM tensor}&15\\
+\text{K\"ahler jet}&15\\
+\text{metric perturbation}&12\\
+\text{connection vector}&10\\
+\text{eigenvalue channels}&2\\
+\text{spectral channels}&2\\
+\text{curvature primitives}&14\\
+\text{scalar curvature}&2\\
+\text{transport triplet}&2\\
+\text{final defect}&2
+\end{array}
+\end{equation}
+The first observed loss occurs at the metric Hessian.  The ladder is not nested: curvature primitives contain fourth derivatives and inverse-metric contractions that recover information not present in the stored six metric entries.
+
+\section{Exchange parity and tensorial observability}
+
+\subsection{The missing odd direction}
+
+Let $P$ exchange the two elliptic variables.  In the classical frame,
+\[
+Pe=e,
+\qquad
+Pr=r,
+\qquad
+Po=-o.
+\]
+The diagonal character tensor is exactly symmetric, and the mixed tensors satisfy the swap relation to residual below $7.2\times10^{-78}$.
+
+The curvature-primitives stack has rank $14$.  Adjoining either coordinate of the odd-to-even metric covector
+\begin{equation}\label{eq:oddblock}
+\cC_o(w)=o^TG_3w,
+\qquad w\in\Span\{e,r\},
+\end{equation}
+raises the rank to $15$.  The classical radial vector does not diagonalize the leading generalized spectral pencil; therefore $o^TG_3r$ is a classical-frame coordinate of the mixing block, not a canonical eigenvector-rotation coefficient.
+
+The stable decomposition is
+\begin{equation}\label{eq:14plus1}
+\cV_{\mathrm{obs},3}=\cV_+\oplus\cV_-,
+\qquad
+\dim\cV_+=14,
+\quad
+\dim\cV_-=1.
+\end{equation}
+The exchange-even curvature primitives see $\cV_+$, while the odd-to-even block supplies the one-dimensional quotient direction $\cV_-$.
+
+\subsection{Degree-two tensorial calibration}
+
+To test whether parity itself creates selectivity, the complete degree-two physical symmetric space was enlarged by the antisymmetric ordered-tensor direction
+\begin{equation}\label{eq:FCminus}
+F_C^-=P_2(y)B(z^2)-B(y^2)P_2(z).
+\end{equation}
+The ordered space decomposes as
+\[
+2\otimes2=3_{\mathrm{even}}\oplus1_{\mathrm{odd}}.
+\]
+The curvature primitives plus the full odd/even covector see all four directions, but the exact physical scalar selectivity on the symmetric three-dimensional space remains zero.
+
+\begin{proposition}[Observability is not selectivity]\label{prop:obsnotselect}
+The parity completion restores the missing tensorial information in both degrees two and three, but exchange covariance by itself imposes no new physical equation on the degree-two enumerative input.  Hence the degree-three $14+1$ decomposition is an observability structure until an independently justified matrix-valued transport law is derived.
+\end{proposition}
+
+\section{The reconstruction atlas}
+
+\subsection{Constraint budget}
+
+Inside the exact fifteen-dimensional observable quotient, the coefficient matrix of the torsion-summed sector $(\mathbf1,\mathbf1)$ has rank $9$ through the certified range $q^{-6},\ldots,q^{40}$.  The scalar transport ceiling is $2$, so these two inputs alone can reach rank at most $11$ and leave at least four directions unresolved.
+
+The natural orbit sums have finite-range ranks
+\[
+\begin{array}{c|c}
+\text{orbit sum}&\text{rank}\\
+\hline
+\text{diagonal character sum}&7\\
+\text{off-diagonal character sum}&9\\
+\text{all-character sum}&9\\
+\text{diagonal plus off-diagonal}&13.
+\end{array}
+\]
+Two independent torsion-class series can reach full rank.
+
+\subsection{One extra sector is sufficient}
+
+Exact cyclotomic row reduction shows that each of
+\[
+(\mathbf1,\omega),
+\qquad
+(\mathbf1,\omega^2),
+\qquad
+(\omega,\omega^2)
+\]
+can complement the torsion-summed sector to full rank $15$.  The mixed sector $(\omega,\omega^2)$ reaches full rank at the shallowest $q$ depth.
+
+\begin{theorem}[Minimal finite coefficient reconstruction]\label{thm:atlas}
+Let $c\in\K^{15}$ be the observable symmetric degree-three ambiguity vector.  There exists an exact invertible $15\times15$ matrix over $\Q(\zeta_{12})$ whose rows are the following coefficients:
+\begin{align*}
+(\mathbf1,\mathbf1):&\quad q^{-6},q^{-5},q^{-4},q^{-3},q^{-2},q^{-1},q^0,q^1,q^2,\\
+(\omega,\omega^2):&\quad q^{-4},q^{-3},q^{-2},q^{-1},q^0,q^2.
+\end{align*}
+Consequently these fifteen external numbers determine $c$ uniquely and reconstruct every observable character sector.
+\end{theorem}
+
+\begin{proof}
+Cell 40 constructs the corresponding coefficient matrix $M$ and verifies $\det M\neq0$ exactly in $\Q(\zeta_{12})$.  Hence $c=M^{-1}y$ for the vector $y$ of the selected coefficients.
+\end{proof}
+
+\begin{remark}
+The theorem proves sufficiency of the selected data.  It does not claim that the six mixed-sector coefficients are already known independently or have been derived from transport.
+\end{remark}
+
+\subsection{External-data bridge}
+
+Cell 41 exports the exact inverse matrix, a tab-separated worksheet, and a fillable Sage template.  The next paper will derive the dictionary between the HSS character labels and the torsion variables $b_1,b_2$ in the BKOS prepotential, including exponent shifts and the trilogarithmic multicover convention.  Only after this dictionary is certified should external torsion data be inserted.
+
+\section{What is genuinely new}
+
+The results beyond Part III can be summarized as follows.
+
+\begin{enumerate}[leftmargin=*,label=\arabic*.]
+\item \textbf{Exact inverse calibration at degree two.}  Bare residue transport has selectivity zero on the complete admissible ambiguity, while the polar residues obey a fully classified hierarchy.
+\item \textbf{An exact HSS three-torsion specialization kernel.}  A non-global weight-sixteen, index-three Jacobi combination vanishes to all orders on the canonical three-torsion sections.
+\item \textbf{An exact $21\to15$ observable reduction.}  The global shared symmetric ambiguity has dimension $21$, but the HSS torsion image has dimension $15$.
+\item \textbf{Faithfulness of the parked sectors.}  The two parked sectors see every observable direction.
+\item \textbf{A scalar no-go result.}  The symmetric CM scalar curvature observable has rank two and cannot reconstruct fifteen coefficients.
+\item \textbf{A geometric information-loss diagnosis.}  The full local response splits into fourteen exchange-even directions and one exchange-odd mixing direction.
+\item \textbf{A minimal exact reconstruction atlas.}  Nine torsion-summed coefficients plus six mixed-sector coefficients determine the complete observable degree-three ambiguity.
+\end{enumerate}
+
+These statements are useful even before the unknown mixed series is inserted.  They replace an open-ended bootstrap with a finite, audited inverse problem and prevent closure from being mistaken for derivation.
+
+\section{Scope and outlook toward Part V}
+
+The present paper does not derive a new torsion-resolved $q$-series.  Its endpoint is the exact bridge
+\[
+15\text{ observable parameters}
+\longleftrightarrow
+9\text{ torsion-summed coefficients}
++6\text{ mixed-sector coefficients}.
+\]
+Part V will require one of two genuinely new inputs:
+
+\begin{enumerate}[label=(\alph*)]
+\item a certified translation of independent BKOS torsion data into the six requested $(\omega,\omega^2)$ coefficients; or
+\item an independently derived matrix-valued geometric law that supplies equivalent constraints without circularly imposing the observed parity decomposition.
+\end{enumerate}
+
+The first route is presently more concrete.  The BKOS prepotential includes torsion variables with $b_1^3=b_2^3=1$, so character evaluation is a finite Fourier transform.  The remaining work is to fix the HSS/free-degree dictionary, the multicover normalization, and the character-sign convention.  Once the six mixed coefficients are known, the atlas reconstructs all fifteen ambiguity coefficients and predicts every other observable sector.
+
+\section{Reproducibility}
+
+The supplementary bundle contains the SageMath scripts from the degree-two inverse calibration through the degree-three external-data bridge.  The recommended order is:
+\[
+\begin{aligned}
+28\mathrm{E/F}&\to29\to30\to31\to32\to33\to34\to35\mathrm{B}\to36\to37\mathrm{A}\to37\mathrm{B2},\\
+&\to37\mathrm{C}\to37\mathrm{D}\to37\mathrm{E2}\to37\mathrm{F}\to38\to39\to40\to41.
+\end{aligned}
+\]
+Cell 37B is retained as the first response prototype; Cell 37B2 is the authoritative rank-growth audit.  The failed spectral-rotation hypothesis is documented in the research notes but the final certificate is Cell 37E v2.
+
+The exact modular/cyclotomic computations use SageMath.  The high-precision response calculations were run at $256$ or $320$ bits.  Intermediate working buffers are explicitly separated from certified $q$-ranges; no rank statement uses the unsafe convolution buffer.
+
+\appendix
+
+\section{Principal certificates}
+
+\begin{longtable}{p{0.22\textwidth}p{0.68\textwidth}}
+\toprule
+Cell & Principal output \\
+\midrule
+\endfirsthead
+\toprule
+Cell & Principal output \\
+\midrule
+\endhead
+28--29 & $\rank\mathsf T_2=9$; exact polar hierarchy; no unresolved subsets.\\
+30 & Global one-sided degree-three ambiguity dimension $6$; global symmetric dimension $21$.\\
+31 & Shared symmetric coefficient vector; independent $42$-parameter model rejected.\\
+32 & Exact Sakai normalizations; parked-sector coefficient rank $15$ through certified finite range.\\
+33 & Six-dimensional global evaluation kernel before quotient; no extra candidate sector lifts it.\\
+34 & Exact finite-range quotient relation and $15\times21$ quotient map.\\
+35B & Global identity rejected; intrinsic $q_t^4$ correction; $\Gamma(3)$; Sturm bound $32$; all-orders specialization identity.\\
+36 & Complete degree-two ambiguity; zero bare selectivity; degree-three target dimension $15$.\\
+37A & CM jets through $\theta^6$; final-cutoff change $4.27\times10^{-65}$.\\
+37B2 & Scalar response rank $2/15$; infinite regular tail in the audited window.\\
+37C & Rank ladder $15,15,12,10,2,2,14,2,2,2$.\\
+37D--37F & One local odd/even metric block lifts $14\to15$; stable exchange decomposition $14+1$.\\
+38 & Degree-two tensorial $3+1$ calibration; observability restored, selectivity unchanged.\\
+39 & Torsion-summed finite-range rank $9$; one extra character sector sufficient for rank $15$.\\
+40 & Exact reconstruction atlas; viable extra sectors; preferred $(\omega,\omega^2)$.\\
+41 & Exact $9+6$ data worksheet and invertible reconstruction bridge.\\
+\bottomrule
+\end{longtable}
+
+\section{Code inventory}
+
+\small
+\begin{longtable}{p{0.17\textwidth}p{0.71\textwidth}}
+\toprule
+Cell & File \\
+\midrule
+\endfirsthead
+\toprule
+Cell & File \\
+\midrule
+\endhead
+28E & \path{28e\_specialize\_first\_worker.sage}\\
+28F & \path{28f\_aggregate\_specialize\_first.sage}\\
+29 & \path{29\_exact\_polar\_dependency\_certificate.sage}\\
+30 & \path{30\_degree3\_bootstrap\_dimension\_census.sage}\\
+31 & \path{31\_shared\_bijacobi\_torsion\_model.sage}\\
+32 & \path{32\_degree3\_A3\_B3\_hss\_torsion\_candidate\_v2.sage}\\
+33 & \path{33\_degree3\_evaluation\_kernel\_and\_sector\_lift.sage}\\
+34 & \path{34\_degree3\_certified\_15d\_quotient\_v3.sage}\\
+35B & \path{35b\_degree3\_torsion\_modularity\_audit.sage}\\
+36 & \path{36\_degree2\_full\_space\_baseline\_and\_degree3\_selectivity\_ledger.sage}\\
+37A & \path{37\_degree3\_cm\_jet\_extraction.sage}\\
+37B & \path{37b\_degree3\_linear\_curvature\_response.sage}\\
+37B2 & \path{37b2\_degree3\_response\_rank\_growth\_audit.sage}\\
+37C & \path{37c\_degree3\_information\_loss\_and\_observable\_stack.sage}\\
+37D & \path{37d\_degree3\_minimal\_observable\_lift.sage}\\
+37E2 & \path{37e\_degree3\_parity\_block\_mixing\_certificate\_v2.sage}\\
+37F & \path{37f\_degree3\_exchange\_parity\_decomposition.sage}\\
+38 & \path{38\_degree2\_tensorial\_parity\_calibration.sage}\\
+39 & \path{39\_degree3\_torsion\_recombination\_constraint\_census.sage}\\
+40 & \path{40\_degree3\_exact\_reconstruction\_atlas.sage}\\
+41 & \path{41\_degree3\_minimal\_external\_data\_bridge.sage}\\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\begin{thebibliography}{99}
+
+\bibitem{PartI}
+\emph{A CM-Point Spectral--Curvature Closure for the HSS Leading Sector}, companion preprint, Part I (2026).
+
+\bibitem{PartII}
+\emph{Modular Fixed-Point Degree-Two Obstruction in an HSS-Motivated Schoen Sector}, companion preprint, Part II (2026).
+
+\bibitem{PartIII}
+\emph{Residue Transport at the Volume Divisor and Exact Degree-Two Closure in an HSS-Motivated Schoen Sector}, companion preprint, Part III (2026).
+
+\bibitem{OberdieckPixton}
+G.~Oberdieck and A.~Pixton,
+\emph{Gromov--Witten theory of elliptic fibrations: Jacobi forms and holomorphic anomaly equations},
+Geometry \& Topology 23 (2019), arXiv:1709.01481.
+
+\bibitem{Wang}
+H.~Wang,
+\emph{Weyl invariant $E_8$ Jacobi forms},
+Communications in Number Theory and Physics 15 (2021), arXiv:1801.08462.
+
+\bibitem{Sakai}
+K.~Sakai,
+\emph{Weyl invariant Jacobi forms for the $E_n$ root systems},
+Journal of Number Theory 196 (2019), arXiv:1706.04619.
+
+\bibitem{EichlerZagier}
+M.~Eichler and D.~Zagier,
+\emph{The Theory of Jacobi Forms},
+Progress in Mathematics 55, Birkh\"auser, 1985.
+
+\bibitem{Sturm}
+J.~Sturm,
+\emph{On the congruence of modular forms},
+Lecture Notes in Mathematics 1240 (1987), 275--280.
+
+\bibitem{BKOSA}
+V.~Braun, M.~Kreuzer, B.~A.~Ovrut, and E.~Scheidegger,
+\emph{Worldsheet instantons and torsion curves, Part A: Direct computation},
+JHEP 10 (2007) 022, arXiv:hep-th/0703182.
+
+\bibitem{BKOSB}
+V.~Braun, M.~Kreuzer, B.~A.~Ovrut, and E.~Scheidegger,
+\emph{Worldsheet instantons and torsion curves, Part B: Mirror symmetry},
+JHEP 10 (2007) 023, arXiv:0704.0449.
+
+\end{thebibliography}
+
+\end{document}
